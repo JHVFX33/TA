@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT. Wahana Pelita Persada</title>
+    <link rel="stylesheet" href="halaman_utama.css" />
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-overlay">
+          <div class="header-top">
+            <img src="Logo Perusahaan.png" alt="Logo Perusahaan" class="logo" />
+            <nav class="nav">
+              <a href="#">Halaman</a>
+              <a href="#">Tentang Kami</a>
+              <a href="#">Kontak</a>
+              <a href="#">Laporkan</a>
+              <a href="#">Cek Pesanan</a>
+            </nav>
+            <button class="login">Log In</button>
+          </div>
+      
+          <div class="welcome-container">
+            <h1 class="welcome">WELCOME</h1>
+            <p class="sub-welcome">We Are National Scale Company That is Experienced In Metal Roof Truss and Galvanized Steel Pipe Manufacturing</p>
+          </div>
+        </div>
+      </header>
+      
+      <div class="overlay" id="popup">
+        <div class="popup">
+          <h2>Pilih Peran Anda</h2>
+    
+          <!-- Pilihan peran -->
+          <div id="role-selection">
+            <button class="role-btn" data-role="Admin">Admin</button>
+            <button class="role-btn" data-role="Pengirim">Pengirim</button>
+            <button class="role-btn" data-role="Logistik">Logistik</button>
+          </div>
+    
+          <!-- Form login -->
+          <form id="login-form" class="login-form">
+            <h3 id="form-title"></h3>
+            <label for="username">Username / Email</label>
+            <input type="text" id="username" name="username" required />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+            <button type="submit">Login</button>
+            <button type="button" class="back-btn" id="back-btn">Kembali</button>
+          </form>
+        </div>
+      </div>
+    
+      <script>
+        const roleButtons = document.querySelectorAll('.role-btn');
+        const roleSelection = document.getElementById('role-selection');
+        const loginForm = document.getElementById('login-form');
+        const formTitle = document.getElementById('form-title');
+        const backBtn = document.getElementById('back-btn');
+    
+        roleButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const role = btn.getAttribute('data-role');
+            formTitle.textContent = `Login sebagai ${role}`;
+            roleSelection.style.display = 'none';
+            loginForm.classList.add('active');
+          });
+        });
+    
+        backBtn.addEventListener('click', () => {
+          loginForm.classList.remove('active');
+          roleSelection.style.display = 'block';
+        });
+    
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert(`Login sebagai ${formTitle.textContent.replace('Login sebagai ', '')} berhasil!`);
+          // Tambahkan proses autentikasi backend di sini
+        });
+      </script>
+    
+    </body>
+      
+    <section class="features">
+        <h2>We offer an outstanding service<br>on-time everytime</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <img src="2769539.png" alt="Customer Service" />
+                <p>Customer Service 24/7</p>
+            </div>
+            <div class="card">
+                <img src="Group 24.png" alt="Tracking" />
+                <p>Pelacakan Pengiriman Aman</p>
+            </div>
+            <div class="card">
+                <img src="Certificate.png" alt="ISO" />
+                <p>Sertifikasi ISO 9001:2015</p>
+            </div>
+            <div class="card">
+                <img src="Delivery.png" alt="Home Delivery" />
+                <p>Pengantaran Sampai ke Rumah</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="tracking">
+        <h3>Lacak Barang Anda</h3>
+        <input type="text" placeholder="Masukkan Nomor Resi Anda" />
+        <button>Lacak</button>
+        <p>Pengiriman Anda Bermasalah?? <a href="#">Klik Untuk Melaporkan</a></p>
+    </section>
+
+    <footer>
+        <div class="info">
+            <img src="Logo Perusahaan.png" alt="Logo" class="footer-logo" />
+            <p>info@metalbangunan.com</p>
+            <p>+62 811-3397-988</p>
+            <p>Dawarblandong, Mojokerto, Jawa Timur, 60129</p>
+        </div>
+        <div class="socials">
+            <a href="#"><img src="twitter.png" alt="Twitter" /></a>
+            <a href="#"><img src="facebook.png" alt="Facebook" /></a>
+            <a href="#"><img src="instagram.png" alt="Instagram" /></a>
+        </div>
+        <p class="copyright">© 2025 Unpack. All Rights Reserved.</p>
+    </footer>
+
+</body>
+<!-- konten HTML lainnya -->                        
+
+<script src="halaman_utama.js"></script>
+</body>
+
+</html>
