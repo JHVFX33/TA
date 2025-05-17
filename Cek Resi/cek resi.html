@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sistem Pelacakan Pengiriman</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" href="cek resi.css" />
+    <style>
+      /* Ensure map container has explicit height and width */
+      #map {
+        height: 300px;
+        width: 100%;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Navigation -->
+    <header class="header">
+      <div class="container header-container">
+        <a href="#" class="logo">
+          <img src="Logo Perusahaan.png" alt="Logo Perusahaan" />
+        </a>
+        <nav class="nav-desktop">
+          <a href="#" class="nav-link">Beranda</a>
+          <a href="#" class="nav-link">Tentang Kami</a>
+          <a href="#" class="nav-link">Layanan</a>
+          <a href="#" class="nav-link">Kontak</a>
+          <a href="#" class="nav-link active">Cek Pesanan</a>
+        </nav>
+        <button class="nav-toggle" aria-label="Toggle menu">
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <h1>Pelayanan Pelacakan Pengiriman</h1>
+        <p>
+          Lacak paket Anda dengan mudah dan pantau status pengiriman dengan GPS
+          tracker secara real-time
+        </p>
+      </div>
+    </section>
+
+    <!-- Tracking Form Section -->
+    <section class="container tracking-form-section">
+      <div class="tracking-form-card">
+        <h2>Lacak Barang Anda</h2>
+        <form class="tracking-form" onsubmit="return false;">
+          <input
+            type="text"
+            placeholder="Masukkan Nomor Resi Anda"
+            class="tracking-input"
+            aria-label="Nomor Resi"
+          />
+          <button type="submit" class="tracking-button">Lacak</button>
+        </form>
+        <p class="tracking-help">
+          Pengiriman Anda Bermasalah?
+          <a href="#" class="tracking-link">Klik Untuk Melaporkan</a>
+        </p>
+      </div>
+    </section>
+
+    <body>
+  <div class="container">
+    <div class="card">
+      <div class="info-section">
+        <div class="info-block">
+          <h2>Informasi Paket</h2>
+          <p><span>Nomor Resi</span><br>255272637466060807</p>
+          <p><span>Jenis Layanan</span><br>SPX Instant</p>
+          <p><span>Jenis Barang</span><br>Pakaian</p>
+          <p><span>Berat</span><br>2.5 kg</p>
+        </div>
+        <div class="info-block">
+          <h2>Informasi Penerima</h2>
+          <p><span>Nama Penerima</span><br>Budi Santoso</p>
+          <p><span>Nomor Telepon</span><br>+62 878-9012-3456</p>
+          <p><span>Alamat Tujuan</span><br>Perumahan Bukit Indah Blok H2, Kab. Bandung, Jawa Barat, 40376</p>
+        </div>
+      </div>
+    </div>
+
+      <div class="tracking-status">
+        <div class="step active">
+          <div class="icon"></div>
+          <p>DIKEMAS</p>
+        </div>
+        <div class="line active-line"></div>
+        <div class="step active">
+          <div class="icon"></div>
+          <p>DIKIRIM</p>
+        </div>
+        <div class="line"></div>
+        <div class="step">
+          <div class="icon"></div>
+          <p>DITERIMA</p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+    <!-- Tracking Status Section -->
+    <section class="container">
+      <div class="tracking-content">
+        <!-- Map Section -->
+        <div class="map-card">
+          <h3>Lokasi Kurir</h3>
+          <div id="map"></div>
+          <div class="map-info">
+            <div class="map-info-icon">
+              <i class="ri-truck-line"></i>
+            </div>
+            <div>
+              <p class="map-info-label">Estimasi Tiba</p>
+              <p class="map-info-time">08 Mei 2025, 15:30 WIB</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="timeline-card">
+          <h3>Riwayat Pengiriman</h3>
+          <div class="timeline-line"></div>
+
+          <div class="timeline-item active">
+            <div class="timeline-dot">
+              <i class="ri-truck-line"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-date">08-05-2025 09:22</span>
+                <span class="timeline-status">Sedang Dikirim</span>
+              </div>
+              <h4>Paket dalam perjalanan</h4>
+              <p>
+                Kurir sedang dalam perjalanan menuju alamat tujuan. Estimasi tiba
+                15:30 WIB.
+              </p>
+              <div class="timeline-meta">
+                <p>Kurir: Ahmad Fauzi (ID: KR-78901)</p>
+                <p>Lokasi: Jl. Raya Bogor Km. 27, Jakarta Timur</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="ri-store-2-line"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-date">07-05-2025 18:33</span>
+              </div>
+              <h4>Paket telah tiba di hub Jakarta</h4>
+              <p>Paket telah sampai di pusat sortir Jakarta.</p>
+              <div class="timeline-meta">
+                <p>Lokasi: Gudang Sortir Jakarta Timur, Jl. Industri 5 No. 23</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="ri-flight-takeoff-line"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-date">06-05-2025 20:19</span>
+              </div>
+              <h4>Paket dalam pengiriman antar kota</h4>
+              <p>Paket dikirim dari Bandung menuju Jakarta.</p>
+              <div class="timeline-meta">
+                <p>Lokasi: Terminal Cargo Bandung</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">
+              <i class="ri-inbox-archive-line"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-date">06-05-2025 15:22</span>
+              </div>
+              <h4>Paket telah dikemas</h4>
+              <p>Paket telah diproses dan siap untuk pengiriman.</p>
+              <div class="timeline-meta">
+                <p>Lokasi: Gudang PT Logistik Cepat Indonesia, Bandung</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+        <div class="info">
+            <img src="Logo Perusahaan.png" alt="Logo" class="footer-logo" />
+            <p>info@metalbangunan.com</p>
+            <p>+62 811-3397-988</p>
+            <p>Dawarblandong, Mojokerto, Jawa Timur, 60129</p>
+        </div>
+        <div class="socials">
+            <a href="#"><img src="Twiter.png" alt="Twitter" /></a>
+            <a href="#"><img src="facebook.png" alt="Facebook" /></a>
+            <a href="#"><img src="instagram.png" alt="Instagram" /></a>
+        </div>
+        <p class="copyright">© 2025 Unpack. All Rights Reserved.</p>
+    </body>
+
+    <script>
+      // Use jQuery noConflict mode if jQuery is loaded to avoid conflicts
+      var $jq = window.jQuery ? jQuery.noConflict(true) : null;
+
+      function initMap() {
+        try {
+          const trackingData = {
+            currentLocation: { lat: -6.2088, lng: 106.8456 }, // Jakarta
+            destination: { lat: -6.9147, lng: 107.6098 }, // Bandung
+          };
+
+          if (typeof google === "undefined" || !google.maps) {
+            console.error("Google Maps API failed to load.");
+            document.getElementById("map").innerHTML = "<p style='color:red; text-align:center;'>Gagal memuat peta. Silakan coba lagi nanti.</p>";
+            return;
+          }
+
+          const map = new google.maps.Map(document.getElementById("map"), {
+            center: trackingData.currentLocation,
+            zoom: 12,
+          });
+
+          new google.maps.Marker({
+            position: trackingData.currentLocation,
+            map: map,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 10,
+              fillColor: "#FF6B35",
+              fillOpacity: 1,
+              strokeWeight: 2,
+              strokeColor: "#FFFFFF",
+            },
+          });
+
+          const directionsService = new google.maps.DirectionsService();
+          const directionsRenderer = new google.maps.DirectionsRenderer({
+            map: map,
+            suppressMarkers: true,
+            polylineOptions: {
+              strokeColor: "#FF6B35",
+              strokeWeight: 5,
+            },
+          });
+
+          directionsService.route(
+            {
+              origin: trackingData.currentLocation,
+              destination: trackingData.destination,
+              travelMode: google.maps.TravelMode.DRIVING,
+            },
+            (response, status) => {
+              if (status === "OK") {
+                directionsRenderer.setDirections(response);
+              } else {
+                console.error("Directions request failed due to " + status);
+              }
+            }
+          );
+        } catch (error) {
+          console.error("Error initializing map:", error);
+          document.getElementById("map").innerHTML = "<p style='color:red; text-align:center;'>Terjadi kesalahan saat memuat peta.</p>";
+        }
+      }
+
+      function loadGoogleMaps() {
+        if (document.getElementById("google-maps-script")) {
+          return; // Prevent loading multiple times
+        }
+        const script = document.createElement("script");
+        script.id = "google-maps-script";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=YOUR_REAL_API_KEY&callback=initMap";
+        script.async = true;
+        script.defer = true;
+        script.onerror = function () {
+          console.error("Failed to load Google Maps script.");
+          document.getElementById("map").innerHTML = "<p style='color:red; text-align:center;'>Gagal memuat peta. Silakan coba lagi nanti.</p>";
+        };
+        document.head.appendChild(script);
+      }
+
+      function onReady(fn) {
+        if (
+          document.readyState === "complete" ||
+          document.readyState === "interactive"
+        ) {
+          setTimeout(fn, 1);
+        } else {
+          document.addEventListener("DOMContentLoaded", fn);
+        }
+      }
+
+      onReady(function () {
+        loadGoogleMaps();
+
+        const navToggle = document.querySelector(".nav-toggle");
+        if (navToggle) {
+          navToggle.addEventListener("click", () => {
+            const nav = document.querySelector(".nav-desktop");
+            if (nav) {
+              nav.classList.toggle("nav-open");
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
