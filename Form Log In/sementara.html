@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css"> 
+</head>
+<body>
+    <div class="card" id="roleSelection">
+        <h2>Pilih Peran</h2>
+        <button class="button role-btn" onclick="selectRole('Admin')">🔐 Admin</button>
+        <button class="button role-btn" onclick="selectRole('Kurir')">🚚 Kurir</button>
+        <p id="selectedRole"></p>
+    </div>
+
+    <div class="card hidden" id="loginCard">
+        <h2>Login</h2>
+        <p id="roleDisplay" style="margin-bottom: 15px;"></p>
+        <input class="input" type="text" id="email" placeholder="👤 Username">
+        
+        <div class="password-container">
+            <input class="input" type="password" id="password" placeholder="🔒 Password">
+            <button class="toggle-password" onclick="togglePassword()">👁️</button>
+        </div>
+
+        <button class="button" onclick="login()">Masuk</button>
+    </div>
+<script src="login.js"></script>
+</body>
+</html>

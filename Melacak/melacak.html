@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelacakan Barang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar Mobile -->
+  <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-lg font-bold">PT. WAHANA PELITA PERSADA</h1>
+    <button id="menuBtn" class="focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Container -->
+  <div class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 hidden md:block">
+      <div class="flex flex-col items-center mb-4">
+        <img src="pt.PNG" alt="Logo Perusahaan" class="w-34 h-16 mb-2">
+        <h1 class="text-center text-base font-bold">PT. WAHANA PELITA PERSADA</h1>
+      </div>
+      <nav class="mt-6 space-y-2">
+        <a href="hlmadmin.html" class="block p-3 hover:bg-gray-200 rounded-md">Dashboard</a>
+        <a href="pengiriman.html" class="block p-3 hover:bg-gray-200 rounded-md">Pengiriman</a>
+        <a href="melacak.html" class="block p-3 hover:bg-gray-200 rounded-md">Melacak</a>
+        <a href="keluhan.html" class="block p-3 hover:bg-gray-200 rounded-md">Keluhan</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 overflow-auto">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Pelacakan Barang</h2>
+        <div class="relative">
+          <div class="flex items-center space-x-4 cursor-pointer" id="profileMenu">
+            <span class="text-gray-700 text-sm">Robert Allen - HR Manager</span>
+            <img src="mz.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image">
+          </div>
+          <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md">
+            <button class="w-full text-left p-2 hover:bg-gray-200" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300 text-sm">
+          <thead>
+            <tr class="bg-gray-200 text-center">
+              <th class="p-2 border">Product Name</th>
+              <th class="p-2 border">Lokasi</th>
+              <th class="p-2 border">Pengantaran</th>
+              <th class="p-2 border">Nomor Pesanan</th>
+              <th class="p-2 border">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Diisi oleh JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex flex-col md:flex-row justify-between items-center mt-4 gap-2">
+        <div>
+          <label for="showing" class="text-gray-600 text-sm">Showing</label>
+          <select id="showing" class="border rounded px-2 py-1 text-sm">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div id="paginationButtons" class="flex space-x-2"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-2xl shadow-2xl w-[90%] max-w-md relative">
+      <h3 class="text-lg font-bold mb-2">Informasi Barang</h3>
+      <p id="modalContent" class="text-gray-700 mb-4 text-sm"></p>
+      <label for="statusPengiriman" class="block text-gray-600 text-sm mb-2">Pilih Status Pengiriman</label>
+      <select id="statusPengiriman" class="border rounded px-2 py-1 w-full mb-4 text-sm">
+        <option value="Menunggu Pengiriman">Menunggu Pengiriman</option>
+        <option value="Sedang Dikirim">Sedang Dikirim</option>
+        <option value="Selesai Pengantaran">Selesai Pengantaran</option>
+      </select>
+      <button onclick="updateStatus()" class="bg-blue-500 text-white px-4 py-2 rounded-md text-sm">Submit</button>
+      <button onclick="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Script untuk Mobile Sidebar -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- Melacak Script -->
+  <script src="melacak.js"></script>
+</body>
+
+</body>
+</html>

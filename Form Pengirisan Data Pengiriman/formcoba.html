@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pengiriman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let map, marker;
+
+        function initMap() {
+            const defaultLocation = { lat: -6.200000, lng: 106.816666 };
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 12,
+            });
+
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true,
+            });
+
+            marker.addListener("dragend", function () {
+                document.getElementById("location").value = 
+                    marker.getPosition().lat() + ", " + marker.getPosition().lng();
+            });
+        }
+    </script>
+    <style>
+        .map-container { width: 100%; height: 300px; border-radius: 5px; overflow: hidden; }
+        .upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; cursor: pointer; border-radius: 5px; }
+        .preview-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .preview-item { width: 100px; height: 100px; object-fit: cover; border-radius: 5px; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col lg:flex-row h-screen">
+        <!-- Sidebar -->
+        <aside class="lg:w-64 bg-white shadow-md p-4 lg:block hidden">
+            <div class="text-center mb-4">
+                <img src="pt.PNG" alt="Logo Perusahaan" class="w-32 h-16 mb-2 mx-auto">
+                <h1 class="text-lg font-bold">PT. WAHANA PELITA PERSADA</h1>
+            </div>
+            <nav>
+                <a href="hlmadmin.html" class="block p-3 hover:bg-gray-200 rounded-md">Dashboard</a>
+                <a href="pengiriman.html" class="block p-3 bg-red-500 text-white rounded-md font-bold border-l-4 border-red-700">Pengiriman</a>
+                <a href="melacak.html" class="block p-3 hover:bg-gray-200 rounded-md">Melacak</a>
+                <a href="keluhan.html" class="block p-3 hover:bg-gray-200 rounded-md">Keluhan</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-grow p-6 overflow-auto">
+            <h2 class="text-xl font-bold mb-4">Barang Yang Akan Anda Kirim</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-lg font-bold mb-4">Form Pengiriman Pesanan Bahan Bangunan</h2>
+                <form id="shipmentForm" class="space-y-4">
+                    <label>Nama Customer*</label>
+                    <input type="text" id="customerName" class="border p-2 rounded w-full" required>
+                    
+                    <label>Kontak Customer*</label>
+                    <input type="tel" id="customerContact" class="border p-2 rounded w-full" required>
+                    
+                    <label>Nama Pengirim*</label>
+                    <input type="text" id="senderName" class="border p-2 rounded w-full" required>
+                    
+                    <label>Kontak Pengirim*</label>
+                    <input type="tel" id="senderContact" class="border p-2 rounded w-full" required>
+                    
+                    <label>Alamat Pengiriman</label>
+                    <textarea id="deliveryAddress" class="border p-2 rounded w-full"></textarea>
+
+                    <label>Supir</label>
+                    <input type="tel" id="driverContact" class="border p-2 rounded w-full" required>
+
+                    <label>Nama Barang</label>
+                    <input type="text" id="itemName" class="border p-2 rounded w-full" required>
+                    
+                    <label>Berat Muatan (Kg)</label>
+                    <input type="number" id="itemWeight" class="border p-2 rounded w-full" required>
+                    
+                    <label>Lokasi Pengiriman</label>
+                    <input type="text" id="location" class="border p-2 rounded w-full" required>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d31682.014654783146!2d107.62518295468674!3d-6.979583441687282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1747059408757!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    <!-- Upload Foto -->
+                    <label>Unggah Foto Dokumentasi (Max 10MB)</label>
+                    <input type="file" id="photoUpload" accept="image/*" multiple class="border p-2 rounded w-full mb-2">
+                    <div id="photoUploadBox" class="upload-box mb-4">Drag & drop atau klik untuk memilih foto</div>
+                    <div id="photoPreview" class="preview-container"></div>
+
+                    <!-- Upload Video -->
+                    <label>Unggah Video Dokumentasi (Max 50MB)</label>
+                    <input type="file" id="videoUpload" accept="video/*" multiple class="border p-2 rounded w-full mb-2">
+                    <div id="videoUploadBox" class="upload-box mb-4">Drag & drop atau klik untuk memilih video</div>
+                    <div id="videoPreview" class="preview-container"></div>
+
+                    <button type="submit" class="bg-green-500 text-white p-2 rounded w-full hover:bg-green-600">
+                        Simpan & Proses Pengiriman
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="formcoba.js"></script>
+</body>
+</html>

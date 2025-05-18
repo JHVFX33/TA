@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PT. Wahana Pelita Persada - Produsen Rangka Atap & Pipa Baja Galvanis Nasional">
+  <title>PT. Wahana Pelita Persada</title>
+  <link rel="stylesheet" href="asd/halaman_utama.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-overlay">
+      <div class="header-top">
+        <img src="asd/Logo Perusahaan.png" alt="Logo PT. Wahana Pelita Persada" class="logo" />
+        <nav class="nav">
+          <a href="#">Halaman</a>
+          <a href="#">Tentang Kami</a>
+          <a href="contactus.html">Kontak</a>
+          <a href="#">Laporkan</a>
+          <a href="#">Cek Pesanan</a>
+        </nav>
+        <a href="sementara.html" class="login">Log In</a>
+      </div>
+
+      <div class="welcome-container">
+        <h1 class="welcome">SELAMAT DATANG</h1>
+        <p class="sub-welcome">Kami adalah perusahaan nasional berpengalaman dalam produksi rangka atap baja & pipa galvanis</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="features">
+    <h2>Kami memberikan layanan terbaik<br>tepat waktu setiap saat</h2>
+    <div class="feature-cards">
+      <div class="card">
+        <img src="asd/2769539.png" alt="Layanan Pelanggan 24 Jam" />
+        <p>Customer Service 24/7</p>
+      </div>
+      <div class="card">
+        <img src="asd/Group 24.png" alt="Pelacakan Pengiriman" />
+        <p>Pelacakan Pengiriman Aman</p>
+      </div>
+      <div class="card">
+        <img src="asd/Certificate.png" alt="Sertifikasi ISO" />
+        <p>Sertifikasi ISO 9001:2015</p>
+      </div>
+      <div class="card">
+        <img src="asd/Delivery.png" alt="Pengantaran ke Rumah" />
+        <p>Pengantaran Sampai ke Rumah</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tracking">
+    <h3>Lacak Barang Anda</h3>
+    <input type="text" placeholder="Masukkan Nomor Resi Anda" />
+    <button>Lacak</button>
+    <p>Pengiriman Anda Bermasalah? <a href="#">Klik Untuk Melaporkan</a></p>
+  </section>
+
+  <footer>
+    <div class="info">
+      <img src="asd/Logo Perusahaan.png" alt="Logo" class="footer-logo" />
+      <p>info@metalbangunan.com</p>
+      <p>+62 811-3397-988</p>
+      <p>Dawarblandong, Mojokerto, Jawa Timur, 60129</p>
+    </div>
+    <div class="socials">
+      <a href="#"><img src="asd/Twiter.png" alt="Twitter" /></a>
+      <a href="#"><img src="asd/Facebook.png" alt="Facebook" /></a>
+      <a href="#"><img src="asd/Instagram.png" alt="Instagram" /></a>
+    </div>
+    <p class="copyright">© 2025 PT. Wahana Pelita Persada. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
+  <!-- Script JavaScript -->
+  <script>
+    function showRoleSelection() {
+      document.getElementById('role-selection').style.display = 'block';
+      document.getElementById('login-form').style.display = 'none';
+    }
+
+    const roleButtons = document.querySelectorAll('.role-btn');
+    const roleSelection = document.getElementById('role-selection');
+    const loginForm = document.getElementById('login-form');
+    const formTitle = document.getElementById('form-title');
+    const backBtn = document.getElementById('back-btn');
+
+    roleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const role = btn.getAttribute('data-role');
+        formTitle.textContent = `Login sebagai ${role}`;
+        roleSelection.style.display = 'none';
+        loginForm.style.display = 'block';
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      loginForm.style.display = 'none';
+      roleSelection.style.display = 'block';
+    });
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert(`Login sebagai ${formTitle.textContent.replace('Login sebagai ', '')} berhasil!`);
+      // Tambahkan proses autentikasi backend di sini
+    });
+  </script>
+</body>
+</html>

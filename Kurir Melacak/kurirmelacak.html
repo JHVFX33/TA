@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelacakan Barang</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navbar Mobile -->
+  <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-lg font-bold">PT. WAHANA PELITA PERSADA</h1>
+    <button id="menuBtn" class="focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex flex-col md:flex-row min-h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 md:block hidden">
+      <div class="flex flex-col items-center mb-4">
+        <img src="pt.PNG" alt="Logo Perusahaan" class="w-32 h-auto mb-2 object-contain">
+        <h1 class="text-base font-bold text-center">PT. WAHANA PELITA PERSADA</h1>
+      </div>
+      <nav class="mt-6 space-y-2">
+        <a href="kurirmelacak.html" class="block p-3 bg-red-500 text-white rounded-md font-bold border-l-4 border-red-700">Melacak</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 overflow-auto">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+        <h2 class="text-lg md:text-xl font-bold text-gray-800">Pelacakan Barang</h2>
+        <div class="relative">
+          <div class="flex items-center space-x-3 cursor-pointer" id="profileMenu">
+            <span class="text-gray-700 text-sm md:text-base">Isfantesa - Supir</span>
+            <img src="kartun.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image">
+          </div>
+          <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md z-10">
+            <button class="w-full text-left p-2 hover:bg-gray-200 text-sm" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabel -->
+      <div class="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
+        <table class="min-w-full border-collapse border border-gray-300 text-sm">
+          <thead>
+            <tr class="bg-gray-200 text-center text-xs md:text-sm">
+              <th class="p-2 border">Product Name</th>
+              <th class="p-2 border">Lokasi</th>
+              <th class="p-2 border">Pengantaran</th>
+              <th class="p-2 border">Nomor Pesanan</th>
+              <th class="p-2 border">Status</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Data dinamis -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal -->
+      <div id="infoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 grid place-items-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-4 md:p-6 relative space-y-4">
+          <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl font-bold">&times;</button>
+          <div class="text-center">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-1">📦 Info Pengiriman</h3>
+            <p class="text-gray-500 text-sm">Periksa dan ubah status pengantaran jika diperlukan</p>
+          </div>
+          <div id="modalContent" class="bg-gray-50 p-4 rounded-lg shadow-inner text-sm text-gray-700 border">
+            <!-- Dinamis -->
+          </div>
+          <div id="formSection" class="space-y-4">
+            <div>
+              <label for="buktiPengantaran" class="block font-medium text-gray-700 mb-1">📸 Foto Bukti Pengantaran</label>
+              <input type="file" accept="image/*" id="buktiPengantaran" class="w-full text-sm p-2 border rounded-md mb-2" onchange="previewImage(event)">
+              <img id="previewFoto" src="" alt="Preview Foto" class="hidden w-full max-h-64 object-contain rounded border shadow-sm">
+            </div>
+            <div>
+              <label for="statusPengiriman" class="block font-medium text-gray-700 mb-1">🚚 Ubah Status Pengiriman</label>
+              <select id="statusPengiriman" class="w-full p-2 border rounded-md text-sm">
+                <option value="Menunggu Pengiriman">Menunggu Pengiriman</option>
+                <option value="Sedang Dikirim">Sedang Dikirim</option>
+                <option value="Selesai Pengantaran">Selesai Pengantaran</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-end space-x-2">
+            <button onclick="window.location.href='sementara.html'" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow">Maps</button>
+            <button onclick="updateStatus()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow">✅ Submit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-2">
+        <div>
+          <label for="showing" class="text-gray-600 text-sm">Tampilkan</label>
+          <select id="showing" class="border rounded px-2 py-1 text-sm">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div id="paginationButtons" class="flex flex-wrap gap-2 mt-2 sm:mt-0"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Script: Sidebar Toggle dan Dropdown -->
+  <script>
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('hidden');
+    });
+
+    document.getElementById('profileMenu')?.addEventListener('click', () => {
+      const dropdown = document.getElementById('logoutDropdown');
+      dropdown.classList.toggle('hidden');
+    });
+
+    function previewImage(event) {
+      const output = document.getElementById('previewFoto');
+      output.src = URL.createObjectURL(event.target.files[0]);
+      output.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').classList.add('hidden');
+    }
+
+    function updateStatus() {
+      alert("Status berhasil diperbarui!");
+      closeModal();
+    }
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const profileMenu = document.getElementById('profileMenu');
+    const logoutDropdown = document.getElementById('logoutDropdown');
+
+    profileMenu?.addEventListener('click', () => {
+      logoutDropdown?.classList.toggle('hidden');
+    });
+  });
+</script>
+
+  </script>
+
+  <script src="kurirmelacak.js"></script>
+</body>
+</html>
