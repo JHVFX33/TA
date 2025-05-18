@@ -1,0 +1,10 @@
+Link Github : https://github.com/JHVFX33/TA.git
+Website : waper.my.id
+
+Akses Admin
+Username: admin
+PW: 1
+
+Akses Kurir
+Username:kurir
+PW: 2
