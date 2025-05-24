@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Pesanan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#f44336",
+              secondary: "#2196f3",
+            },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      .active-menu {
+      border-left: 3px solid #f44336;
+      background-color: rgba(244, 67, 54, 0.05);
+      color: #f44336;
+      }
+      .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      min-width: 150px;
+      z-index: 10;
+      }
+      .dropdown-menu.show {
+      display: block;
+      }
+      .dropdown-item {
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      }
+      .dropdown-item:hover {
+      background-color: #f5f5f5;
+      }
+      .dropdown-item.delete:hover {
+      background-color: #fee2e2;
+      color: #ef4444;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-sans text-gray-800">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <div class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <div class="p-4 border-b border-gray-200 flex items-center gap-3">
+          <div class="text-primary font-['Pacifico'] text-xl">logo</div>
+          <div class="text-xs">
+            <div class="font-bold">PT. WAHANA PELITA</div>
+            <div>PERSADA</div>
+          </div>
+        </div>
+        <div class="p-4 text-sm font-medium text-gray-500">Menu</div>
+        <nav class="flex-1 overflow-y-auto">
+          <a
+            href="#"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+          >
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-dashboard-line"></i>
+            </div>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+          >
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-radar-line"></i>
+            </div>
+            <span>Melacak</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+          >
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-customer-service-line"></i>
+            </div>
+            <span>Keluhan</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+          >
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-box-3-line"></i>
+            </div>
+            <span>Barang</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 active-menu">
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-shopping-cart-line"></i>
+            </div>
+            <span>Pesanan</span>
+          </a>
+          <a
+            href="#"
+            class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+          >
+            <div class="w-6 h-6 flex items-center justify-center mr-3">
+              <i class="ri-user-line"></i>
+            </div>
+            <span>Account</span>
+          </a>
+        </nav>
+      </div>
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Header -->
+        <header
+          class="bg-white border-b border-gray-200 flex items-center justify-between px-6 py-4"
+        >
+          <h1 class="text-xl font-bold">Manajemen Pesanan</h1>
+          <div class="flex items-center gap-4">
+            <div class="text-right">
+              <div class="font-medium">Robert Allen</div>
+              <div class="text-xs text-gray-500">Warehouse Manager</div>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20a%20warehouse%20manager%2C%20male%2C%2040s%2C%20business%20attire%2C%20neutral%20background%2C%20professional%20lighting&width=100&height=100&seq=1&orientation=squarish"
+                alt="Profile"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </header>
+        <!-- Content -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <div class="flex justify-between items-center mb-6">
+              <div class="text-lg font-medium">
+                Daftar Pesanan
+                <span class="text-sm text-gray-500">Total: 158 pesanan</span>
+              </div>
+              <div class="flex gap-4">
+                <div class="relative">
+                  <div
+                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                  >
+                    <div
+                      class="w-5 h-5 flex items-center justify-center text-gray-400"
+                    >
+                      <i class="ri-search-line"></i>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-64 pl-10 p-2.5 focus:ring-primary focus:border-primary outline-none"
+                    placeholder="Cari pesanan..."
+                  />
+                </div>
+                <button
+                  class="bg-primary text-white px-4 py-2.5 rounded-button flex items-center gap-2 whitespace-nowrap"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-add-line"></i>
+                  </div>
+                  Tambah Pesanan
+                </button>
+              </div>
+            </div>
+            <!-- Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm text-left">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">No. Pesanan</th>
+                    <th scope="col" class="px-6 py-3">Nama Customer</th>
+                    <th scope="col" class="px-6 py-3">Alamat</th>
+                    <th scope="col" class="px-6 py-3 text-right">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-001</td>
+                    <td class="px-6 py-4">Budi Santoso</td>
+                    <td class="px-6 py-4">
+                      Jl. Merdeka No. 123, Jakarta Selatan
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown1"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown1" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-002</td>
+                    <td class="px-6 py-4">Diana Wijaya</td>
+                    <td class="px-6 py-4">
+                      Jl. Sudirman No. 45, Jakarta Pusat
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown2"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown2" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-003</td>
+                    <td class="px-6 py-4">Ahmad Hidayat</td>
+                    <td class="px-6 py-4">
+                      Jl. Gatot Subroto No. 78, Jakarta Timur
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown3"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown3" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-004</td>
+                    <td class="px-6 py-4">Siti Rahayu</td>
+                    <td class="px-6 py-4">Jl. Thamrin No. 56, Jakarta Pusat</td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown4"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown4" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-005</td>
+                    <td class="px-6 py-4">Rudi Hartono</td>
+                    <td class="px-6 py-4">
+                      Jl. Kebon Jeruk No. 89, Jakarta Barat
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown5"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown5" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-006</td>
+                    <td class="px-6 py-4">Anita Permata</td>
+                    <td class="px-6 py-4">
+                      Jl. Pahlawan No. 34, Jakarta Selatan
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown6"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown6" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-007</td>
+                    <td class="px-6 py-4">Bambang Sugianto</td>
+                    <td class="px-6 py-4">
+                      Jl. Diponegoro No. 67, Jakarta Pusat
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown7"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown7" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-008</td>
+                    <td class="px-6 py-4">Dian Purnama</td>
+                    <td class="px-6 py-4">Jl. Cikini No. 12, Jakarta Pusat</td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown8"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown8" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-009</td>
+                    <td class="px-6 py-4">Eko Prasetyo</td>
+                    <td class="px-6 py-4">
+                      Jl. Tebet Raya No. 45, Jakarta Selatan
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown9"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown9" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="bg-white hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">PSN-20250524-010</td>
+                    <td class="px-6 py-4">Fina Kusuma</td>
+                    <td class="px-6 py-4">
+                      Jl. Kemang Raya No. 23, Jakarta Selatan
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <div class="relative inline-block text-left">
+                        <button
+                          class="text-gray-500 hover:text-gray-700 dropdown-trigger"
+                          data-dropdown="dropdown10"
+                        >
+                          <div class="w-8 h-8 flex items-center justify-center">
+                            <i class="ri-more-2-fill"></i>
+                          </div>
+                        </button>
+                        <div id="dropdown10" class="dropdown-menu">
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-eye-line"></i>
+                            </div>
+                            Lihat Detail
+                          </div>
+                          <div class="dropdown-item">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-edit-line"></i>
+                            </div>
+                            Edit Pesanan
+                          </div>
+                          <div class="dropdown-item delete">
+                            <div
+                              class="w-5 h-5 flex items-center justify-center"
+                            >
+                              <i class="ri-delete-bin-line"></i>
+                            </div>
+                            Hapus
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Pagination -->
+            <div class="flex items-center justify-between mt-6">
+              <div class="text-sm text-gray-500">
+                Menampilkan 1-10 dari 245 pesanan
+              </div>
+              <div class="flex items-center space-x-2">
+                <button
+                  class="px-3 py-1 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                  disabled
+                >
+                  <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-arrow-left-s-line"></i>
+                  </div>
+                </button>
+                <button
+                  class="px-3 py-1 border border-primary bg-primary text-white rounded-md"
+                >
+                  1
+                </button>
+                <button
+                  class="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  2
+                </button>
+                <button
+                  class="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  3
+                </button>
+                <span class="px-1">...</span>
+                <button
+                  class="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-50"
+                >
+                  25
+                </button>
+                <button
+                  class="px-3 py-1 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- Modal Detail Pesanan -->
+    <div
+      id="detailModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-white rounded-lg shadow-xl w-3/4 max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex justify-between items-center border-b border-gray-200 px-6 py-4"
+        >
+          <h3 class="text-lg font-bold">Detail Pesanan</h3>
+          <button
+            id="closeDetailModal"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <h4 class="font-medium mb-4">Informasi Pesanan</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex">
+                  <span class="w-32 text-gray-500">No. Pesanan:</span>
+                  <span class="font-medium" id="detailOrderNumber"
+                    >PSN-20250524-001</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-32 text-gray-500">Tanggal Pesanan:</span>
+                  <span id="detailOrderDate">24 Mei 2025</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h4 class="font-medium mb-4">Informasi Customer</h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex">
+                  <span class="w-32 text-gray-500">Nama:</span>
+                  <span id="detailCustomerName">Budi Santoso</span>
+                </div>
+                <div class="flex">
+                  <span class="w-32 text-gray-500">Alamat:</span>
+                  <span id="detailCustomerAddress"
+                    >Jl. Merdeka No. 123, Jakarta Selatan</span
+                  >
+                </div>
+                <div class="flex">
+                  <span class="w-32 text-gray-500">No. Telepon:</span>
+                  <span id="detailCustomerPhone">0812-3456-7890</span>
+                </div>
+                <div class="flex">
+                  <span class="w-32 text-gray-500">Email:</span>
+                  <span id="detailCustomerEmail">budi.santoso@email.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4 class="font-medium mb-4">Daftar Barang</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-4 py-3">No.</th>
+                  <th scope="col" class="px-4 py-3">Nama Barang</th>
+                  <th scope="col" class="px-4 py-3">Jumlah</th>
+                </tr>
+              </thead>
+              <tbody id="detailItemsList">
+                <tr class="bg-white border-b">
+                  <td class="px-4 py-3">1</td>
+                  <td class="px-4 py-3">Seng Gelombang</td>
+                  <td class="px-4 py-3">50 Lembar</td>
+                </tr>
+                <tr class="bg-white border-b">
+                  <td class="px-4 py-3">2</td>
+                  <td class="px-4 py-3">Paku 5 cm</td>
+                  <td class="px-4 py-3">2 Kg</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="px-4 py-3">3</td>
+                  <td class="px-4 py-3">Karet Penutup</td>
+                  <td class="px-4 py-3">10 Meter</td>
+                </tr>
+              </tbody>
+              <tfoot></tfoot>
+            </table>
+          </div>
+          <div class="mt-6 flex justify-end">
+            <button
+              id="closeDetailModalBtn"
+              class="bg-gray-200 text-gray-800 px-4 py-2 rounded-button whitespace-nowrap"
+            >
+              Tutup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Edit Pesanan -->
+    <div
+      id="editModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div
+        class="bg-white rounded-lg shadow-xl w-3/4 max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex justify-between items-center border-b border-gray-200 px-6 py-4"
+        >
+          <h3 class="text-lg font-bold">Edit Pesanan</h3>
+          <button id="closeEditModal" class="text-gray-500 hover:text-gray-700">
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <div class="p-6">
+          <form id="editOrderForm">
+            <div class="grid grid-cols-2 gap-6 mb-6">
+              <div>
+                <h4 class="font-medium mb-4">Informasi Pesanan</h4>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >No. Pesanan</label
+                    >
+                    <input
+                      type="text"
+                      id="editOrderNumber"
+                      class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                      value="PSN-20250524-001"
+                      disabled
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Tanggal Pesanan</label
+                    >
+                    <input
+                      type="date"
+                      id="editOrderDate"
+                      class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                      value="2025-05-24"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-medium mb-4">Informasi Customer</h4>
+                <div class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Nama</label
+                    >
+                    <input
+                      type="text"
+                      id="editCustomerName"
+                      class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                      value="Budi Santoso"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Alamat</label
+                    >
+                    <textarea
+                      id="editCustomerAddress"
+                      rows="2"
+                      class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                    >
+Jl. Merdeka No. 123, Jakarta Selatan</textarea
+                    >
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >No. Telepon</label
+                    >
+                    <input
+                      type="text"
+                      id="editCustomerPhone"
+                      class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                      value="0812-3456-7890"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      id="editCustomerEmail"
+                      class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                      value="budi.santoso@email.com"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 class="font-medium mb-4">Daftar Barang</h4>
+            <div class="overflow-x-auto mb-4">
+              <table class="w-full text-sm text-left">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-4 py-3">No.</th>
+                    <th scope="col" class="px-4 py-3">Nama Barang</th>
+                    <th scope="col" class="px-4 py-3">Jumlah</th>
+                    <th scope="col" class="px-4 py-3">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="editItemsList">
+                  <tr class="bg-white border-b">
+                    <td class="px-4 py-3">1</td>
+                    <td class="px-4 py-3">
+                      <input
+                        type="text"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none"
+                        value="Seng Gelombang"
+                      />
+                    </td>
+                    <td class="px-4 py-3">
+                      <input
+                        type="number"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none"
+                        value="50"
+                      />
+                    </td>
+                    <td class="px-4 py-3">
+                      <button
+                        type="button"
+                        class="text-red-500 hover:text-red-700"
+                      >
+                        <div class="w-5 h-5 flex items-center justify-center">
+                          <i class="ri-delete-bin-line"></i>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b">
+                    <td class="px-4 py-3">2</td>
+                    <td class="px-4 py-3">
+                      <input
+                        type="text"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none"
+                        value="Paku 5 cm"
+                      />
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <input
+                          type="number"
+                          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-20 p-2 focus:ring-primary focus:border-primary outline-none"
+                          value="2"
+                        />
+                        <select
+                          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block ml-2 p-2 focus:ring-primary focus:border-primary outline-none"
+                        >
+                          <option value="lembar">Lembar</option>
+                          <option value="kg" selected>Kg</option>
+                          <option value="meter">Meter</option>
+                          <option value="pcs">Pcs</option>
+                        </select>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3">
+                      <button
+                        type="button"
+                        class="text-red-500 hover:text-red-700"
+                      >
+                        <div class="w-5 h-5 flex items-center justify-center">
+                          <i class="ri-delete-bin-line"></i>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="bg-white border-b">
+                    <td class="px-4 py-3">3</td>
+                    <td class="px-4 py-3">
+                      <input
+                        type="text"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none"
+                        value="Karet Penutup"
+                      />
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center">
+                        <input
+                          type="number"
+                          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-20 p-2 focus:ring-primary focus:border-primary outline-none"
+                          value="10"
+                        />
+                        <select
+                          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block ml-2 p-2 focus:ring-primary focus:border-primary outline-none"
+                        >
+                          <option value="lembar">Lembar</option>
+                          <option value="kg">Kg</option>
+                          <option value="meter" selected>Meter</option>
+                          <option value="pcs">Pcs</option>
+                        </select>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3">
+                      <button
+                        type="button"
+                        class="text-red-500 hover:text-red-700"
+                      >
+                        <div class="w-5 h-5 flex items-center justify-center">
+                          <i class="ri-delete-bin-line"></i>
+                        </div>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button
+              type="button"
+              id="addItemBtn"
+              class="text-primary border border-primary px-4 py-2 rounded-button flex items-center gap-2 mb-6 whitespace-nowrap"
+            >
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-add-line"></i>
+              </div>
+              Tambah Barang
+            </button>
+            <div class="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                id="cancelEditBtn"
+                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-button whitespace-nowrap"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="bg-primary text-white px-4 py-2 rounded-button whitespace-nowrap"
+              >
+                Simpan Perubahan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Tambah Pesanan -->
+    <div
+      id="addOrderModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div class="bg-white rounded-lg shadow-xl w-[600px]">
+        <div
+          class="flex justify-between items-center border-b border-gray-200 px-6 py-4"
+        >
+          <h3 class="text-lg font-bold">Tambah Pesanan Baru</h3>
+          <button
+            id="closeAddOrderModal"
+            class="text-gray-500 hover:text-gray-700"
+          >
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <div class="p-6">
+          <form id="addOrderForm">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Nama Customer</label
+                >
+                <input
+                  type="text"
+                  name="customerName"
+                  class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                  placeholder="Masukkan nama customer"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Alamat</label
+                >
+                <textarea
+                  name="address"
+                  rows="3"
+                  class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                  placeholder="Masukkan alamat lengkap"
+                  required
+                ></textarea>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-2">
+                  <label class="block text-sm font-medium text-gray-700"
+                    >Daftar Barang</label
+                  >
+                  <button
+                    type="button"
+                    id="addItemToNewOrder"
+                    class="text-primary text-sm flex items-center gap-1"
+                  >
+                    <div class="w-4 h-4 flex items-center justify-center">
+                      <i class="ri-add-line"></i>
+                    </div>
+                    Tambah Barang
+                  </button>
+                </div>
+                <div id="newOrderItems" class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <div class="flex-1">
+                      <select
+                        name="items[]"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                        required
+                      >
+                        <option value="">Pilih Barang</option>
+                        <option value="seng">Seng Gelombang</option>
+                        <option value="paku">Paku 5cm</option>
+                        <option value="karet">Karet Penutup</option>
+                      </select>
+                    </div>
+                    <div class="w-24">
+                      <input
+                        type="number"
+                        name="quantities[]"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none"
+                        placeholder="Jumlah"
+                        required
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      class="text-red-500 hover:text-red-700 remove-item"
+                    >
+                      <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-delete-bin-line"></i>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                id="cancelAddOrder"
+                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-button whitespace-nowrap"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="bg-primary text-white px-4 py-2 rounded-button whitespace-nowrap"
+              >
+                Simpan Pesanan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Konfirmasi Hapus -->
+    <div
+      id="deleteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50"
+    >
+      <div class="bg-white rounded-lg shadow-xl w-96">
+        <div class="p-6">
+          <div class="flex items-center justify-center mb-4 text-red-500">
+            <div class="w-16 h-16 flex items-center justify-center">
+              <i class="ri-error-warning-fill ri-3x"></i>
+            </div>
+          </div>
+          <h3 class="text-lg font-bold text-center mb-2">Konfirmasi Hapus</h3>
+          <p class="text-center text-gray-600 mb-6">
+            Apakah Anda yakin ingin menghapus pesanan
+            <span id="deleteOrderNumber" class="font-medium"
+              >PSN-20250524-001</span
+            >?
+          </p>
+          <div class="flex justify-center gap-3">
+            <button
+              id="cancelDeleteBtn"
+              class="bg-gray-200 text-gray-800 px-4 py-2 rounded-button whitespace-nowrap"
+            >
+              Batal
+            </button>
+            <button
+              id="confirmDeleteBtn"
+              class="bg-red-500 text-white px-4 py-2 rounded-button whitespace-nowrap"
+            >
+              Ya, Hapus
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="dropdownScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const addOrderBtn = document.querySelector("button.bg-primary");
+        const addOrderModal = document.getElementById("addOrderModal");
+        const closeAddOrderModal = document.getElementById("closeAddOrderModal");
+        const cancelAddOrder = document.getElementById("cancelAddOrder");
+        const addItemToNewOrder = document.getElementById("addItemToNewOrder");
+        const newOrderItems = document.getElementById("newOrderItems");
+        const addOrderForm = document.getElementById("addOrderForm");
+        // Show Add Order Modal
+        if (addOrderBtn) {
+          addOrderBtn.addEventListener("click", function () {
+            addOrderModal.classList.remove("hidden");
+          });
+        }
+        // Close Add Order Modal
+        if (closeAddOrderModal) {
+          closeAddOrderModal.addEventListener("click", function () {
+            addOrderModal.classList.add("hidden");
+          });
+        }
+        if (cancelAddOrder) {
+          cancelAddOrder.addEventListener("click", function () {
+            addOrderModal.classList.add("hidden");
+          });
+        }
+        // Add New Item Row
+        if (addItemToNewOrder) {
+          addItemToNewOrder.addEventListener("click", function () {
+            const newItem = document.createElement("div");
+            newItem.className = "flex items-center gap-3";
+            newItem.innerHTML = `
+      <div class="flex-1">
+      <select name="items[]" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none" required>
+      <option value="">Pilih Barang</option>
+      <option value="seng">Seng Gelombang</option>
+      <option value="paku">Paku 5cm</option>
+      <option value="karet">Karet Penutup</option>
+      </select>
+      </div>
+      <div class="w-24">
+      <input type="number" name="quantities[]" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-primary focus:border-primary outline-none" placeholder="Jumlah" required>
+      </div>
+      <button type="button" class="text-red-500 hover:text-red-700 remove-item">
+      <div class="w-5 h-5 flex items-center justify-center">
+      <i class="ri-delete-bin-line"></i>
+      </div>
+      </button>
+      `;
+            newOrderItems.appendChild(newItem);
+            // Add event listener to new remove button
+            const removeBtn = newItem.querySelector(".remove-item");
+            removeBtn.addEventListener("click", function () {
+              newItem.remove();
+            });
+          });
+        }
+        // Handle Remove Item
+        document.addEventListener("click", function (e) {
+          if (e.target.closest(".remove-item")) {
+            const item = e.target.closest(".flex.items-center");
+            item.remove();
+          }
+        });
+        // Handle Form Submit
+        if (addOrderForm) {
+          addOrderForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // Here you would normally save the new order
+            const formData = new FormData(this);
+            console.log("New order data:", Object.fromEntries(formData));
+            addOrderModal.classList.add("hidden");
+            this.reset();
+          });
+        }
+        const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+        dropdownTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const dropdownId = this.getAttribute("data-dropdown");
+            const dropdown = document.getElementById(dropdownId);
+            // Close all other dropdowns
+            document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+              if (menu.id !== dropdownId) {
+                menu.classList.remove("show");
+              }
+            });
+            // Toggle current dropdown
+            dropdown.classList.toggle("show");
+          });
+        });
+        // Close all dropdowns when clicking outside
+        document.addEventListener("click", function () {
+          document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+            menu.classList.remove("show");
+          });
+        });
+        // Prevent dropdown from closing when clicking inside it
+        document.querySelectorAll(".dropdown-menu").forEach((menu) => {
+          menu.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        });
+        // Setup dropdown item actions
+        document.querySelectorAll(".dropdown-item").forEach((item) => {
+          item.addEventListener("click", function () {
+            const action = this.textContent.trim();
+            const row = this.closest("tr");
+            const orderNumber = row.querySelector("td:first-child").textContent;
+            if (action.includes("Lihat Detail")) {
+              showDetailModal(orderNumber);
+            } else if (action.includes("Edit Pesanan")) {
+              showEditModal(orderNumber);
+            } else if (action.includes("Hapus")) {
+              showDeleteModal(orderNumber);
+            }
+          });
+        });
+      });
+    </script>
+    <script id="modalScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        // Detail Modal
+        const detailModal = document.getElementById("detailModal");
+        const closeDetailModal = document.getElementById("closeDetailModal");
+        const closeDetailModalBtn = document.getElementById("closeDetailModalBtn");
+        // Edit Modal
+        const editModal = document.getElementById("editModal");
+        const closeEditModal = document.getElementById("closeEditModal");
+        const cancelEditBtn = document.getElementById("cancelEditBtn");
+        const editOrderForm = document.getElementById("editOrderForm");
+        // Delete Modal
+        const deleteModal = document.getElementById("deleteModal");
+        const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+        const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+        // Close Detail Modal
+        if (closeDetailModal) {
+          closeDetailModal.addEventListener("click", function () {
+            detailModal.classList.add("hidden");
+          });
+        }
+        if (closeDetailModalBtn) {
+          closeDetailModalBtn.addEventListener("click", function () {
+            detailModal.classList.add("hidden");
+          });
+        }
+        // Close Edit Modal
+        if (closeEditModal) {
+          closeEditModal.addEventListener("click", function () {
+            editModal.classList.add("hidden");
+          });
+        }
+        if (cancelEditBtn) {
+          cancelEditBtn.addEventListener("click", function () {
+            editModal.classList.add("hidden");
+          });
+        }
+        // Handle Edit Form Submit
+        if (editOrderForm) {
+          editOrderForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            // Here you would normally save the changes
+            alert("Perubahan berhasil disimpan!");
+            editModal.classList.add("hidden");
+          });
+        }
+        // Close Delete Modal
+        if (cancelDeleteBtn) {
+          cancelDeleteBtn.addEventListener("click", function () {
+            deleteModal.classList.add("hidden");
+          });
+        }
+        // Handle Delete Confirmation
+        if (confirmDeleteBtn) {
+          confirmDeleteBtn.addEventListener("click", function () {
+            // Here you would normally delete the order
+            alert("Pesanan berhasil dihapus!");
+            deleteModal.classList.add("hidden");
+          });
+        }
+        // Add Item Button
+        const addItemBtn = document.getElementById("addItemBtn");
+        if (addItemBtn) {
+          addItemBtn.addEventListener("click", function () {
+            const editItemsList = document.getElementById("editItemsList");
+            const rowCount = editItemsList.querySelectorAll("tr").length + 1;
+            const newRow = document.createElement("tr");
+            newRow.className = "bg-white border-b";
+            newRow.innerHTML = `
+      <td class="px-4 py-3">${rowCount}</td>
+      <td class="px-4 py-3">
+      <input type="text" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none" placeholder="Nama Barang">
+      </td>
+      <td class="px-4 py-3">
+      <input type="number" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 focus:ring-primary focus:border-primary outline-none" value="1">
+      </td>
+      <td class="px-4 py-3">
+      <button type="button" class="text-red-500 hover:text-red-700 delete-item-btn">
+      <div class="w-5 h-5 flex items-center justify-center">
+      <i class="ri-delete-bin-line"></i>
+      </div>
+      </button>
+      </td>
+      `;
+            editItemsList.appendChild(newRow);
+            // Add event listener to the new delete button
+            const deleteButtons = document.querySelectorAll(".delete-item-btn");
+            const lastDeleteButton = deleteButtons[deleteButtons.length - 1];
+            lastDeleteButton.addEventListener("click", function () {
+              const row = this.closest("tr");
+              row.remove();
+              // Renumber rows
+              const rows = editItemsList.querySelectorAll("tr");
+              rows.forEach((row, index) => {
+                row.querySelector("td:first-child").textContent = index + 1;
+              });
+            });
+          });
+        }
+      });
+      // Show Detail Modal
+      function showDetailModal(orderNumber) {
+        const detailModal = document.getElementById("detailModal");
+        document.getElementById("detailOrderNumber").textContent = orderNumber;
+        // In a real application, you would fetch the order details from the server
+        // For this demo, we'll just show the modal with the sample data
+        detailModal.classList.remove("hidden");
+      }
+      // Show Edit Modal
+      function showEditModal(orderNumber) {
+        const editModal = document.getElementById("editModal");
+        document.getElementById("editOrderNumber").value = orderNumber;
+        // In a real application, you would fetch the order details from the server
+        // For this demo, we'll just show the modal with the sample data
+        editModal.classList.remove("hidden");
+      }
+      // Show Delete Modal
+      function showDeleteModal(orderNumber) {
+        const deleteModal = document.getElementById("deleteModal");
+        document.getElementById("deleteOrderNumber").textContent = orderNumber;
+        deleteModal.classList.remove("hidden");
+      }
+    </script>
+  </body>
+</html>

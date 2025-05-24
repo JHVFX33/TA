@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halaman Keluhan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar Mobile -->
+  <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-base font-bold">PT. WAHANA PELITA PERSADA</h1>
+    <button id="menuBtn" class="focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="flex flex-col md:flex-row h-screen overflow-hidden">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 hidden md:block">
+      <div class="flex flex-col items-center mb-4">
+        <img src="pt.PNG" alt="Logo Perusahaan" class="w-34 h-16 mb-2" />
+        <h1 class="text-lg font-bold text-center">PT. WAHANA PELITA PERSADA</h1>
+      </div>
+      <nav class="mt-6">
+        <a href="hlmadmin.html" class="block p-3 hover:bg-gray-200 rounded-md">Dashboard</a>
+        <a href="pengiriman.html" class="block p-3 mt-2 hover:bg-gray-200 rounded-md">Pengiriman</a>
+        <a href="melacak.html" class="block p-3 mt-2 hover:bg-gray-200 rounded-md">Melacak</a>
+        <a href="keluhan.html" class="block p-3 bg-red-500 text-white rounded-md font-bold border-l-4 border-red-700">Keluhan</a>
+        <a href="barang.html" class="block p-3 hover:bg-gray-200 rounded-md">Barang</a>
+        <a href="Pesanan.html" class="block p-3 hover:bg-gray-200 rounded-md">Pesanan</a>
+        <a href="Pengaturan Akun.html" class="block p-3 hover:bg-gray-200 rounded-md">Pengaturan Akun</a>
+      </nav>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="flex-1 p-4 overflow-auto">
+      <!-- Header dan Profil -->
+      <div class="flex flex-col md:flex-row justify-between items-center mb-4 relative gap-4">
+         
+        <div class="flex flex-col sm:flex-row gap-2 sm:w-2/3 w-full">
+          <input type="text" placeholder="Cari Nama" class="p-2 border rounded-md w-full sm:w-1/2" id="search-name" />
+          <input type="text" placeholder="Cari Nomor Pesanan" class="p-2 border rounded-md w-full sm:w-1/2" id="search-order" />
+        </div>
+        <div class="flex items-center space-x-4 cursor-pointer" id="profileMenu">
+          <span class="text-gray-700 text-sm">Robert Allen - HR Manager</span>
+          <img src="mz.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image" />
+        </div>
+        <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md">
+          <button class="w-full text-left p-2 hover:bg-gray-200" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="date" class="p-2 border rounded-md" id="start-date" />
+          <input type="date" class="p-2 border rounded-md" id="end-date" />
+          <select class="p-2 border rounded-md" id="status-filter">
+            <option value="">Semua Status</option>
+            <option value="Belum Ditangani">Belum Ditangani</option>
+            <option value="Sedang Ditangani">Sedang Ditangani</option>
+            <option value="Selesai">Selesai</option>
+          </select>
+        </div>
+        <button id="filter-button" class="bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition">Filter</button>
+      </div>
+
+      <!-- Tabel -->
+      <div class="bg-white p-4 rounded-lg shadow-md overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300 text-sm">
+          <thead>
+            <tr class="bg-gray-200 text-center">
+              <th class="p-2 border">Nomor Pesanan</th>
+              <th class="p-2 border">Nama Customer</th>
+              <th class="p-2 border">Tanggal Kirim</th>
+              <th class="p-2 border">Nama Sopir</th>
+              <th class="p-2 border">Status</th>
+            </tr>
+          </thead>
+          <tbody id="complaint-table">
+            <tr class="border border-gray-300">
+              <td class="p-2 border">345321231</td>
+              <td class="p-2 border">Maria Sari</td>
+              <td class="p-2 border" data-date="2022-05-27">5/27/22</td>
+              <td class="p-2 border">Budi Santoso</td>
+              <td class="p-2 border"><span class="bg-red-500 text-white px-2 py-1 rounded status">Belum Ditangani</span></td>
+            </tr>
+            <tr class="border border-gray-300">
+              <td class="p-2 border">987654321</td>
+              <td class="p-2 border">Ahmad Ali</td>
+              <td class="p-2 border" data-date="2023-01-27">1/27/23</td>
+              <td class="p-2 border">Ronaldo</td>
+              <td class="p-2 border"><span class="bg-yellow-200 px-2 py-1 rounded status">Sedang Ditangani</span></td>
+            </tr>
+            <tr class="border border-gray-300">
+              <td class="p-2 border">123456789</td>
+              <td class="p-2 border">Lukman</td>
+              <td class="p-2 border" data-date="2024-06-12">12/6/24</td>
+              <td class="p-2 border">Isfan</td>
+              <td class="p-2 border"><span class="bg-green-200 px-2 py-1 rounded status">Selesai</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toggle Sidebar Script -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('hidden');
+    });
+  </script>
+
+  <script src="keluhan.js"></script>
+</body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Barang</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#f43f5e", secondary: "#0ea5e9" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+      input[type="number"] {
+      -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-4 border-b border-gray-200 flex items-center">
+        <div
+          class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3"
+        >
+          <span class="text-primary font-['Pacifico'] text-lg">logo</span>
+        </div>
+        <div class="text-xs text-gray-600">
+          <div class="font-semibold">PT. WAHANA PELITA PERSADA</div>
+        </div>
+      </div>
+      <div class="p-4 text-sm font-medium text-gray-500">Menu</div>
+      <nav class="flex-1">
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-dashboard-line"></i>
+          </div>
+          <span>Dashboard</span>
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-map-pin-line"></i>
+          </div>
+          <span>Melacak</span>
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-customer-service-line"></i>
+          </div>
+          <span>Keluhan</span>
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 bg-primary/10 text-primary"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-archive-line"></i>
+          </div>
+          <span>Barang</span>
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-shopping-cart-line"></i>
+          </div>
+          <span>Pesanan</span>
+        </a>
+        <a
+          href="#"
+          class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100"
+        >
+          <div class="w-6 h-6 flex items-center justify-center mr-3">
+            <i class="ri-user-line"></i>
+          </div>
+          <span>Account</span>
+        </a>
+      </nav>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-semibold text-gray-800">Manajemen Barang</h1>
+          <div class="flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520a%2520warehouse%2520manager%2520with%2520short%2520hair%2520wearing%2520business%2520casual%2520attire%252C%2520neutral%2520expression%252C%2520plain%2520background%252C%2520professional%2520lighting&width=100&height=100&seq=1&orientation=squarish"
+                alt="Profile"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="text-sm">
+              <div class="font-medium">Robert Allen</div>
+              <div class="text-gray-500 text-xs">Warehouse Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-medium">Daftar Barang</h2>
+              <span class="text-sm text-gray-500">Total: 245 barang</span>
+            </div>
+            <div class="flex gap-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="Cari barang..."
+                  class="pl-10 pr-4 py-2 border border-gray-300 rounded-button text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+              <button
+                id="tambahBarangBtn"
+                class="bg-primary text-white px-4 py-2 rounded-button flex items-center gap-2 text-sm font-medium hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-add-line"></i>
+                </div>
+                Tambah Barang
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Kode Barang
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Nama Barang
+                  </th>
+                  <th
+                    class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Berat/Quantity (KG)
+                  </th>
+                  <th
+                    class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG001</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">
+                    Seng Gelombang
+                  </td>
+                  <td class="px-4 py-4 text-sm text-gray-700">150 kg</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG002</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">Baut 10mm</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">300 box</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG003</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">Paku 5cm</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">250 box</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG004</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">
+                    Cat Tembok Putih
+                  </td>
+                  <td class="px-4 py-4 text-sm text-gray-700">75 pcs</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG005</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">
+                    Semen Tiga Roda
+                  </td>
+                  <td class="px-4 py-4 text-sm text-gray-700">500 kg</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-4 py-4 text-sm text-gray-700">BRG006</td>
+                  <td class="px-4 py-4 text-sm text-gray-700">
+                    Kabel Listrik 2.5mm
+                  </td>
+                  <td class="px-4 py-4 text-sm text-gray-700">120 pcs</td>
+                  <td class="px-4 py-4 text-center relative">
+                    <button
+                      class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn"
+                    >
+                      <i class="ri-more-2-fill"></i>
+                    </button>
+                    <div
+                      class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1"
+                    >
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn"
+                      >
+                        <i class="ri-edit-line mr-2"></i>Edit Barang
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn"
+                      >
+                        <i class="ri-eye-line mr-2"></i>Lihat Detail
+                      </button>
+                      <button
+                        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn"
+                      >
+                        <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Modal Tambah Barang -->
+    <div
+      id="tambahBarangModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+        <div class="flex justify-between items-center p-5 border-b">
+          <h3 class="text-lg font-medium">Tambah Barang Baru</h3>
+          <button id="closeModal" class="text-gray-400 hover:text-gray-500">
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i class="ri-close-line"></i>
+            </div>
+          </button>
+        </div>
+        <form id="tambahBarangForm" class="p-5">
+          <div class="mb-4">
+            <label
+              for="namaBarang"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Nama Barang</label
+            >
+            <input
+              type="text"
+              id="namaBarang"
+              name="namaBarang"
+              class="w-full px-3 py-2 border border-gray-300 rounded-button text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              required
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="quantity"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Quantity</label
+            >
+            <div class="flex">
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                class="w-full px-3 py-2 border border-gray-300 rounded-l-button text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                required
+              />
+              <div class="relative">
+                <select
+                  id="satuan"
+                  name="satuan"
+                  class="appearance-none h-full px-4 py-2 border border-l-0 border-gray-300 rounded-r-button text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary pr-8"
+                >
+                  <option value="kg">kg</option>
+                  <option value="box">box</option>
+                  <option value="pcs">pcs</option>
+                </select>
+                <div
+                  class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-500"
+                >
+                  <div class="w-4 h-4 flex items-center justify-center">
+                    <i class="ri-arrow-down-s-line"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end gap-3 mt-6">
+            <button
+              type="button"
+              id="cancelButton"
+              class="px-4 py-2 border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors !rounded-button whitespace-nowrap"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90 transition-colors !rounded-button whitespace-nowrap"
+            >
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script id="modalScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const tambahBarangBtn = document.getElementById("tambahBarangBtn");
+        const tambahBarangModal = document.getElementById("tambahBarangModal");
+        const closeModal = document.getElementById("closeModal");
+        const cancelButton = document.getElementById("cancelButton");
+        const tambahBarangForm = document.getElementById("tambahBarangForm");
+        // Open modal
+        tambahBarangBtn.addEventListener("click", function () {
+          tambahBarangModal.classList.remove("hidden");
+        });
+        // Close modal functions
+        function closeModalFunc() {
+          tambahBarangModal.classList.add("hidden");
+          tambahBarangForm.reset();
+        }
+        closeModal.addEventListener("click", closeModalFunc);
+        cancelButton.addEventListener("click", closeModalFunc);
+        // Close modal when clicking outside
+        tambahBarangModal.addEventListener("click", function (e) {
+          if (e.target === tambahBarangModal) {
+            closeModalFunc();
+          }
+        });
+        // Form submission
+        tambahBarangForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const namaBarang = document.getElementById("namaBarang").value;
+          const quantity = document.getElementById("quantity").value;
+          const satuan = document.getElementById("satuan").value;
+          // Here you would normally send this data to your backend
+          console.log("Submitted:", {
+            namaBarang,
+            quantity,
+            satuan,
+          });
+          // Add to table (for demo purposes)
+          const tbody = document.querySelector("tbody");
+          const newRow = document.createElement("tr");
+          newRow.className = "hover:bg-gray-50";
+          const kodeBarang = "BRG" + (Math.floor(Math.random() * 900) + 100);
+          newRow.innerHTML = `
+      <td class="px-4 py-4 text-sm text-gray-700">${kodeBarang}</td>
+      <td class="px-4 py-4 text-sm text-gray-700">${namaBarang}</td>
+      <td class="px-4 py-4 text-sm text-gray-700">${quantity} ${satuan}</td>
+      <td class="px-4 py-4 text-center relative">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-full mx-auto action-menu-btn">
+      <i class="ri-more-2-fill"></i>
+      </button>
+      <div class="action-menu hidden absolute right-8 top-12 bg-white border border-gray-200 rounded-lg shadow-lg z-10 w-40 py-1">
+      <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 edit-btn">
+      <i class="ri-edit-line mr-2"></i>Edit Barang
+      </button>
+      <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 detail-btn">
+      <i class="ri-eye-line mr-2"></i>Lihat Detail
+      </button>
+      <button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 delete-btn">
+      <i class="ri-delete-bin-line mr-2"></i>Hapus Barang
+      </button>
+      </div>
+      </td>
+      `;
+          tbody.insertBefore(newRow, tbody.firstChild);
+          closeModalFunc();
+        });
+      });
+    </script>
+    <!-- Delete Confirmation Modal -->
+    <div
+      id="deleteConfirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+        <div class="p-5">
+          <div class="mb-4 text-center">
+            <div
+              class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4"
+            >
+              <i class="ri-error-warning-line text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">
+              Konfirmasi Penghapusan
+            </h3>
+            <p class="text-gray-500">
+              Apakah Anda yakin ingin menghapus barang ini? Tindakan ini tidak
+              dapat dibatalkan.
+            </p>
+          </div>
+          <div class="flex justify-end gap-3">
+            <button
+              id="cancelDelete"
+              class="px-4 py-2 border border-gray-300 rounded-button text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors !rounded-button whitespace-nowrap"
+            >
+              Batal
+            </button>
+            <button
+              id="confirmDelete"
+              class="px-4 py-2 bg-red-600 text-white rounded-button text-sm font-medium hover:bg-red-700 transition-colors !rounded-button whitespace-nowrap"
+            >
+              Hapus
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="actionMenuScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        let currentRow = null;
+        let activeMenu = null;
+        function closeAllMenus() {
+          document.querySelectorAll(".action-menu").forEach((menu) => {
+            menu.classList.add("hidden");
+          });
+          activeMenu = null;
+        }
+        document.addEventListener("click", function (e) {
+          if (
+            !e.target.closest(".action-menu") &&
+            !e.target.closest(".action-menu-btn")
+          ) {
+            closeAllMenus();
+          }
+        });
+        function setupActionMenu(row) {
+          const menuBtn = row.querySelector(".action-menu-btn");
+          const menu = row.querySelector(".action-menu");
+          const deleteBtn = menu.querySelector(".delete-btn");
+          const deleteModal = document.getElementById("deleteConfirmModal");
+          const cancelDeleteBtn = document.getElementById("cancelDelete");
+          const confirmDeleteBtn = document.getElementById("confirmDelete");
+          menuBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (activeMenu === menu) {
+              menu.classList.add("hidden");
+              activeMenu = null;
+            } else {
+              closeAllMenus();
+              menu.classList.remove("hidden");
+              activeMenu = menu;
+              currentRow = row;
+            }
+          });
+          deleteBtn.addEventListener("click", function () {
+            closeAllMenus();
+            deleteModal.classList.remove("hidden");
+          });
+          cancelDeleteBtn.addEventListener("click", function () {
+            deleteModal.classList.add("hidden");
+          });
+          confirmDeleteBtn.addEventListener("click", function () {
+            if (currentRow) {
+              currentRow.remove();
+            }
+            deleteModal.classList.add("hidden");
+          });
+          deleteModal.addEventListener("click", function (e) {
+            if (e.target === deleteModal) {
+              deleteModal.classList.add("hidden");
+            }
+          });
+        }
+        document.querySelectorAll("tbody tr").forEach(setupActionMenu);
+        const tambahBarangForm = document.getElementById("tambahBarangForm");
+        if (tambahBarangForm) {
+          const originalSubmitHandler = tambahBarangForm.onsubmit;
+          tambahBarangForm.onsubmit = function (e) {
+            if (originalSubmitHandler) {
+              originalSubmitHandler.call(this, e);
+            }
+            const newRow = document.querySelector("tbody tr:first-child");
+            if (newRow) {
+              setupActionMenu(newRow);
+            }
+          };
+        }
+      });
+    </script>
+  </body>
+</html>
