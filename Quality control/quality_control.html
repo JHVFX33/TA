@@ -1,27 +1,143 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Pelacakan Barang</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-
-    <!-- Navbar untuk Mobile -->
-    <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
-        <h1 class="text-base font-bold">PT. WAHANA PELITA PERSADA</h1>
-        <button id="menuBtn" class="focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        </button>
-    </div>
-
-    <div class="flex flex-col md:flex-row h-screen overflow-hidden">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 md:block hidden">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT. WAHANA PELITA PERSADA - Manajemen Barang</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#e53e3e", secondary: "#2d3748" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+      }
+      .sidebar {
+      width: 3000px;
+      min-height: 600vh;
+      background-color: #ffffff;
+      border-right: none;
+      box-shadow: 1px 0 5px rgba(0,0,0,0.05);
+      }
+      .content {
+      min-width: 0;
+      flex: 1;
+      padding: 2rem;
+      }
+      .nav-item {
+      padding: 0.75rem 1.5rem;
+      transition: all 0.2s;
+      border-radius: 8px;
+      font-weight: 500;
+      margin: 0.25rem 1rem;
+      }
+      .nav-item:hover:not(.active) {
+      background-color: #f0f2f5;
+      }
+      .nav-item.active {
+      background-color: #ff4b4b;
+      color: white;
+      }
+      .search-input {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      width: 300px;
+      }
+      .search-input:focus {
+      border-color: #ff4b4b;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255,75,75,0.1);
+      }
+      .table-container {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      }
+      th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      text-align: left;
+      color: #64748b;
+      padding: 1rem;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #f1f5f9;
+      }
+      td {
+      padding: 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.875rem;
+      color: #334155;
+      }
+      tr:last-child td {
+      border-bottom: none;
+      }
+      .status-badge {
+      display: inline-block;
+      padding: 0.375rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      }
+      .status-lolos {
+      background-color: #dcfce7;
+      color: #15803d;
+      }
+      .logo-placeholder {
+      width: 120px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff4b4b;
+      font-weight: 600;
+      font-size: 1.5rem;
+      font-family: 'Pacifico', serif;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 md:block hidden">
             <div class="flex flex-col items-center mb-4">
                 <img src="pt.PNG" alt="Logo Perusahaan" class="w-34 h-16 mb-2">
                 <h1 class="text-lg font-bold text-center">PT. WAHANA PELITA PERSADA</h1>
@@ -33,188 +149,413 @@
                 <a href="keluhan.html" class="block p-3 hover:bg-gray-200 rounded-md">Keluhan</a>
             </nav>
         </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-4 overflow-auto">
-            <!-- Header Profil -->
-            <div class="flex justify-between items-center flex-wrap md:flex-nowrap mb-4">
-                <h2 class="text-lg md:text-xl font-bold">QUALITY CONTROL</h2>
-                <div class="relative">
-                    <div class="flex items-center ml-32 space-x-4 cursor-pointer" id="profileMenu">
-                        <span class="text-gray-700 text-sm md:text-base">Robert Allen - HR Manager</span>
-                        <img src="mz.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image">
-                    </div>
-                    <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md">
-                        <button class="w-full text-left p-2 hover:bg-gray-200" onclick="logout()">Logout</button>
-                    </div>
-                </div>
+      <!-- Main Content -->
+      <div class="content p-8">
+        <div class="flex justify-between items-center mb-8">
+          <div>
+            <h1 class="text-2xl font-bold">Manajemen Barang</h1>
+            <p class="text-gray-500 text-sm">Total: 245 barang</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Cari barang..."
+                class="search-input py-2 px-4 pr-10 rounded-md w-64"
+              />
+              <div
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-search-line"></i>
+              </div>
             </div>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Quality Control Produksi</title>
-    <style>
-        body {
-            font-family: sans-serif;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        th:first-child, td:first-child {
-            width: 50px; /* Mengecilkan lebar kolom Nomor */
-        }
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 0.8em;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <h1>Formulir Quality Control Produksi</h1>
-    <form>
-        <table>
+            <button
+              id="openFormBtn"
+              class="bg-[#ff4b4b] hover:bg-[#ff3333] text-white py-2.5 px-5 rounded-button flex items-center gap-2 !rounded-button whitespace-nowrap transition-colors"
+            >
+              <i class="ri-add-line"></i>
+              Tambah Barang
+            </button>
+            <div
+              id="formPopup"
+              class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50"
+            >
+              <div class="bg-white rounded-lg w-[800px] p-6">
+                <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-xl font-semibold">Tambah Barang Baru</h3>
+                  <button
+                    id="closeFormBtn"
+                    class="text-gray-400 hover:text-gray-600"
+                  >
+                    <i class="ri-close-line text-xl"></i>
+                  </button>
+                </div>
+                <form id="addItemForm" class="space-y-4">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Kode Barang</label
+                      >
+                      <input
+                        type="text"
+                        name="kodeBarang"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                        required
+                      />
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Nama Barang</label
+                      >
+                      <input
+                        type="text"
+                        name="namaBarang"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                        required
+                      />
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Parameter QC</label
+                      >
+                      <input
+                        type="text"
+                        name="parameterQC"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                        required
+                      />
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Standar</label
+                      >
+                      <input
+                        type="text"
+                        name="standar"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                        required
+                      />
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Hasil Pengujian</label
+                      >
+                      <input
+                        type="text"
+                        name="hasilPengujian"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50"
+                        required
+                      />
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700"
+                        >Status</label
+                      >
+                      <select
+                        name="status"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 pr-8"
+                        required
+                      >
+                        <option value="Lolos">Lolos</option>
+                        <option value="Tidak Lolos">Tidak Lolos</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="flex justify-end gap-3 mt-6">
+                    <button
+                      type="button"
+                      id="cancelBtn"
+                      class="px-4 py-2 border border-gray-300 rounded-button text-gray-700 hover:bg-gray-50 whitespace-nowrap"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      type="submit"
+                      class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 whitespace-nowrap"
+                    >
+                      Simpan
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 ml-4">
+              <div class="text-right">
+                <p class="font-medium">Robert Allen</p>
+                <p class="text-sm text-gray-500">HR Manager</p>
+              </div>
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full"
+              >
+                <i class="ri-user-line text-gray-600"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-container bg-white">
+          <table>
             <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Parameter QC</th>
-                    <th>Standar</th>
-                    <th>Hasil Pengujian</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
+              <tr>
+                <th>TANGGAL</th>
+                <th>KODE BARANG</th>
+                <th>NAMA BARANG</th>
+                <th>PARAMETER QC</th>
+                <th>STANDAR</th>
+                <th>HASIL PENGUJIAN</th>
+                <th>STATUS</th>
+                <th>AKSI</th>
+              </tr>
             </thead>
-            <tbody id="qcTableBody">
-                <tr>
-                    <td><input type="text" name="nomor[]"></td>
-                    <td><input type="text" name="tanggal[]"></td>
-                    <td><input type="text" name="kode_barang[]"></td>
-                    <td><input type="text" name="nama_barang[]"></td>
-                    <td><input type="text" name="parameter_qc[]"></td>
-                    <td><input type="text" name="standar[]"></td>
-                    <td><input type="text" name="hasil_pengujian[]"></td>
-                    <td>
-                        <select name="status[]">
-                            <option value="Lolos">Lolos</option>
-                            <option value="Tidak Lolos">Tidak Lolos</option>
-                        </select>
-                    </td>
-                    <td><button type="button" class="delete-btn" onclick="deleteRow(this)">Hapus</button></td>
-                </tr>
-                </tbody>
-        </table>
-        <button type="button" onclick="addRow()">Tambah Baris</button>
-        <button type="submit">Submit</button>
-    </form>
-
-    <script>
-        function addRow() {
-            const tableBody = document.getElementById("qcTableBody");
-            const newRow = tableBody.insertRow();
-
-            // Nomor
-            let cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="nomor[]">';
-
-            // Tanggal
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="tanggal[]">';
-
-            // Kode Barang
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="kode_barang[]">';
-
-            // Nama Barang
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="nama_barang[]">';
-
-            // Parameter QC
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="parameter_qc[]">';
-
-            // Standar
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="standar[]">';
-
-            // Hasil Pengujian
-            cell = newRow.insertCell();
-            cell.innerHTML = '<input type="text" name="hasil_pengujian[]">';
-
-            // Status
-            cell = newRow.insertCell();
-            cell.innerHTML = `
-                <select name="status[]">
-                    <option value="Lolos">Lolos</option>
-                    <option value="Tidak Lolos">Tidak Lolos</option>
-                </select>
-            `;
-
-            // Aksi (Tombol Hapus)
-            cell = newRow.insertCell();
-            cell.innerHTML = '<button type="button" class="delete-btn" onclick="deleteRow(this)">Hapus</button>';
-        }
-
-        function deleteRow(button) {
-            const row = button.parentNode.parentNode; // Mendapatkan elemen <tr> dari tombol
-            row.remove();
-        }
-    </script>
-</body>
-
-    <script>
-        // Toggle sidebar mobile
-        document.getElementById('menuBtn').addEventListener('click', () => {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('hidden');
+            <tbody>
+              <tr>
+                <td>2025-05-24</td>
+                <td>WPP/QC/001</td>
+                <td>Besi Hollow 4x4</td>
+                <td>Dimensi</td>
+                <td>40 ± 0.5 mm</td>
+                <td>40.2 mm</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2025-05-23</td>
+                <td>WPP/QC/002</td>
+                <td>Plat Baja 2mm</td>
+                <td>Ketebalan</td>
+                <td>1.95 - 2.05 mm</td>
+                <td>1.98 mm</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2025-05-23</td>
+                <td>WPP/QC/003</td>
+                <td>Kawat Las RB26</td>
+                <td>Komposisi</td>
+                <td>C: 0.08% max</td>
+                <td>C: 0.07%</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2025-05-22</td>
+                <td>WPP/QC/004</td>
+                <td>Pipa Stainless 2"</td>
+                <td>Diameter</td>
+                <td>50.8 ± 0.3 mm</td>
+                <td>50.9 mm</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2025-05-22</td>
+                <td>WPP/QC/005</td>
+                <td>Baut HTB M16</td>
+                <td>Kekuatan Tarik</td>
+                <td>800-1000 MPa</td>
+                <td>950 MPa</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2025-05-21</td>
+                <td>WPP/QC/006</td>
+                <td>Plat Bordes 3mm</td>
+                <td>Kerataan</td>
+                <td>Max 0.5 mm/m</td>
+                <td>0.3 mm/m</td>
+                <td><span class="status-badge status-lolos">Lolos</span></td>
+                <td class="relative">
+                  <button
+                    class="text-gray-400 hover:text-gray-600 action-button"
+                  >
+                    <i class="ri-more-2-fill"></i>
+                  </button>
+                  <div
+                    class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10"
+                  >
+                    <button
+                      class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                      Hapus
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script id="searchFunctionality">
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-input");
+        searchInput.addEventListener("focus", function () {
+          this.classList.add("ring-2", "ring-primary", "ring-opacity-50");
         });
-
-        // Toggle dropdown
-        document.getElementById('profileMenu').addEventListener('click', () => {
-            const dropdown = document.getElementById('logoutDropdown');
-            dropdown.classList.toggle('hidden');
+        searchInput.addEventListener("blur", function () {
+          this.classList.remove("ring-2", "ring-primary", "ring-opacity-50");
         });
-
-        // Fungsi Logout
-        function logout() {
-            if (confirm("Apakah Anda yakin ingin logout?")) {
-                window.location.href = "/";
-            }
-        }
+      });
     </script>
-    <script src="pengiriman.js"></script>
-</body>
+    <script id="formFunctionality">
+      document.addEventListener("DOMContentLoaded", function () {
+        const formPopup = document.getElementById("formPopup");
+        function setupActionButtons() {
+          const actionButtons = document.querySelectorAll(".action-button");
+          actionButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const currentMenu = this.nextElementSibling;
+              document.querySelectorAll(".action-menu").forEach((menu) => {
+                if (menu !== currentMenu) menu.classList.add("hidden");
+              });
+              currentMenu.classList.toggle("hidden");
+            });
+          });
+          const deleteButtons = document.querySelectorAll(".delete-button");
+          deleteButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+              const row = this.closest("tr");
+              row.remove();
+            });
+          });
+        }
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".action-button")) {
+            document.querySelectorAll(".action-menu").forEach((menu) => {
+              menu.classList.add("hidden");
+            });
+          }
+        });
+        setupActionButtons();
+        const openFormBtn = document.getElementById("openFormBtn");
+        const closeFormBtn = document.getElementById("closeFormBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const addItemForm = document.getElementById("addItemForm");
+        function openForm() {
+          formPopup.classList.remove("hidden");
+        }
+        function closeForm() {
+          formPopup.classList.add("hidden");
+          addItemForm.reset();
+        }
+        openFormBtn.addEventListener("click", openForm);
+        closeFormBtn.addEventListener("click", closeForm);
+        cancelBtn.addEventListener("click", closeForm);
+        addItemForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(addItemForm);
+          const currentDate = new Date().toISOString().split("T")[0];
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `
+      <td>${currentDate}</td>
+      <td>${formData.get("kodeBarang")}</td>
+      <td>${formData.get("namaBarang")}</td>
+      <td>${formData.get("parameterQC")}</td>
+      <td>${formData.get("standar")}</td>
+      <td>${formData.get("hasilPengujian")}</td>
+      <td><span class="status-badge status-lolos">${formData.get("status")}</span></td>
+      <td class="relative">
+      <button class="text-gray-400 hover:text-gray-600 action-button">
+      <i class="ri-more-2-fill"></i>
+      </button>
+      <div class="action-menu hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+      <button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 delete-button">
+      <i class="ri-delete-bin-line"></i>
+      Hapus
+      </button>
+      </div>
+      </td>
+      `;
+          setupActionButtons();
+          document
+            .querySelector("tbody")
+            .insertBefore(newRow, document.querySelector("tbody").firstChild);
+          closeForm();
+        });
+      });
+    </script>
+  </body>
 </html>
