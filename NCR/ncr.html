@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pelacakan Barang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar untuk Mobile -->
+    <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-base font-bold">PT. WAHANA PELITA PERSADA</h1>
+        <button id="menuBtn" class="focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="flex flex-col md:flex-row h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 md:block hidden">
+            <div class="flex flex-col items-center mb-4">
+                <img src="pt.PNG" alt="Logo Perusahaan" class="w-34 h-16 mb-2">
+                <h1 class="text-lg font-bold text-center">PT. WAHANA PELITA PERSADA</h1>
+            </div>
+            <nav class="mt-6 space-y-2">
+                <a href="hlmadmin.html" class="block p-3 hover:bg-gray-200 rounded-md">Dashboard</a>
+                <a href="pengiriman.html" class="block p-3 bg-red-500 text-white rounded-md font-bold border-l-4 border-red-700">Pengiriman</a>
+                <a href="melacak.html" class="block p-3 hover:bg-gray-200 rounded-md">Melacak</a>
+                <a href="keluhan.html" class="block p-3 hover:bg-gray-200 rounded-md">Keluhan</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 overflow-auto">
+            <!-- Header Profil -->
+            <div class="flex justify-between items-center flex-wrap md:flex-nowrap mb-4">
+                <h2 class="text-lg md:text-xl font-bold">NON CONFORMANCE</h2>
+                <div class="relative">
+                    <div class="flex items-center ml-32 space-x-4 cursor-pointer" id="profileMenu">
+                        <span class="text-gray-700 text-sm md:text-base">Robert Allen - HR Manager</span>
+                        <img src="mz.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image">
+                    </div>
+                    <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md">
+                        <button class="w-full text-left p-2 hover:bg-gray-200" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Non Conformance Report (NCR)</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+            font-weight: bold;
+            margin-right: 10px;
+            text-align: left;
+        }
+        input[type="text"],
+        input[type="checkbox"],
+        textarea,
+        select {
+            padding: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            flex-grow: 1;
+            margin-left: 0;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .grid-item {
+            padding: 10px;
+        }
+        .sub-label {
+            font-weight: normal;
+            margin-right: 10px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            margin-left: 10px;
+        }
+        .small-text {
+            font-size: 10px;
+            color: #777;
+            display: block;
+            margin-top: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .checkbox-group label {
+            width: auto;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+        .inline-input {
+            width: 150px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>NON CONFORMANCE REPORT (NCR)</h2>
+            <p>(LAPORAN KETIDAKSESUAIAN)</p>
+        </div>
+
+        <div class="section">
+            <h3>BAGIAN 1 - DATA</h3>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="form-group">
+                        <label for="ncr_no">1. NCR No.</label>
+                        <input type="text" id="ncr_no" name="ncr_no">
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="form-group">
+                        <label for="tgl_pengeluaran">2. Tgl. Pengeluaran :</label>
+                        <input type="text" id="tgl_pengeluaran" name="tgl_pengeluaran">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>1. JENIS KETIDAKSESUAIAN/POTENSIAL KETIDAKSESUAIAN</label>
+                <div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="keluhan_pelanggan" name="jenis_ketidaksesuaian" value="Keluhan Pelanggan">
+                        <label for="keluhan_pelanggan" class="sub-label">Keluhan Pelanggan</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="laporan_audit" name="jenis_ketidaksesuaian" value="Laporan Audit">
+                        <label for="laporan_audit" class="sub-label">Laporan Audit</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="laporan_ketidaksesuaian_internal" name="jenis_ketidaksesuaian" value="Laporan Ketidaksesuaian (Internal)">
+                        <label for="laporan_ketidaksesuaian_internal" class="sub-label">Laporan Ketidaksesuaian (Internal)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="lain_lain" name="jenis_ketidaksesuaian" value="Lain-lain">
+                        <label for="lain_lain" class="sub-label">Lain-lain,</label>
+                        <input type="text" id="lain_lain_text" name="lain_lain_text" class="inline-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="deskripsi_problem">2. Deskripsi Problem (Non Conformance) :</label>
+                <textarea id="deskripsi_problem" name="deskripsi_problem" rows="3"></textarea>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Dimensi & Code Mat'l</th>
+                        <th>Qty</th>
+                        <th>Dilaporkan Oleh</th>
+                        <th>Dept.</th>
+                        <th>Kepada :</th>
+                        <th>Dept.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="customer"></td>
+                        <td><input type="text" name="dimensi_code"></td>
+                        <td><input type="text" name="qty"></td>
+                        <td><input type="text" name="dilaporkan_oleh"></td>
+                        <td><input type="text" name="dept_dilaporkan"></td>
+                        <td><input type="text" name="kepada"></td>
+                        <td><input type="text" name="dept_kepada"></td>
+                    </tr>
+                </tbody>
+                 <thead>
+                    <tr>    
+                        <th>Operator :</th>
+                        <th>Shift :</th>
+                        <th>Estimate Cost :</th>
+                        <th>Lokasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="operator"></td>
+                        <td><input type="text" name="shift"></td>
+                        <td><input type="text" name="estimate_cost"></td>
+                        <td><input type="text" name="lokasi"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h3>BAGIAN 2 - AKAR PENYEBAB & TINDAKAN</h3>
+            <div class="form-group">
+                <label>3. AKAR MASALAH (Root Cause atau Analisa) untuk Tindakan Perbaikan & Pencegahan</label><br>
+                <label class="sub-label">Disposisi:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="reject" name="disposisi" value="Reject"> <label for="reject" class="sub-label">Reject</label>
+                    <input type="checkbox" id="repair" name="disposisi" value="Repair"> <label for="repair" class="sub-label">Repair</label>
+                    <input type="checkbox" id="stock" name="disposisi" value="Stock"> <label for="stock" class="sub-label">Stock</label>
+                    <input type="checkbox" id="konsesi" name="disposisi" value="Konsesi"> <label for="konsesi" class="sub-label">Konsesi</label>
+                    <input type="checkbox" id="retur_ganti" name="disposisi" value="Retur/Ganti"> <label for="retur_ganti" class="sub-label">Retur/Ganti</label>
+                    <input type="checkbox" id="kembali_ke_supplier" name="disposisi" value="Kembali ke supplier"> <label for="kembali_ke_supplier" class="sub-label">Kembali ke supplier</label>
+                    <input type="checkbox" id="lain_lain_disposisi" name="disposisi" value="Lain-lain"> <label for="lain_lain_disposisi" class="sub-label">Lain-lain</label> <input type="text" id="lain_lain_disposisi_text" name="lain_lain_disposisi_text" class="inline-input" style="width: 80px;">
+                </div>
+                <label class="sub-label">Problem:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="man" name="problem" value="Man"> <label for="man" class="sub-label">Man</label>
+                    <input type="checkbox" id="methode" name="problem" value="Methode"> <label for="methode" class="sub-label">Methode</label>
+                    <input type="checkbox" id="machine" name="problem" value="Machine"> <label for="machine" class="sub-label">Machine</label>
+                    <input type="checkbox" id="material" name="problem" value="Material"> <label for="material" class="sub-label">Material</label>
+                </div>
+                <label class="sub-label">Status NCR:</label>
+                <div style="display: flex; align-items: center;">
+                    <input type="checkbox" id="open" name="status_ncr" value="Open" style="margin-right: 5px;">
+                    <label for="open" style="font-weight: normal; margin-right: 15px;">Open</label>
+                    <input type="checkbox" id="closed" name="status_ncr" value="Closed" style="margin-right: 5px;">
+                    <label for="closed" style="font-weight: normal;">Closed</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>4. TINDAKAN PERBAIKAN SEGERA YANG DIAJUKAN (Immediate action)</label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Target Selesai</th>
+                            <th>PIC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><textarea name="tindakan_segera_1" rows="2"></textarea></td>
+                            <td><input type="text" name="target_selesai_1"></td>
+                            <td><input type="text" name="pic_1"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea name="tindakan_segera_2" rows="2"></textarea></td>
+                            <td><input type="text" name="target_selesai_2"></td>
+                            <td><input type="text" name="pic_2"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea name="tindakan_segera_3" rows="2"></textarea></td>
+                            <td><input type="text" name="target_selesai_3"></td>
+                            <td><input type="text" name="pic_3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <label>5. TINDAKAN KOREKTIF / PENCEGAHAN YANG DIAJUKAN</label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Target Selesai</th>
+                            <th>PIC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><textarea name="tindakan_korektif_1" rows="2"></textarea></td>
+                            <td><input type="text" name="target_selesai_korektif_1"></td>
+                            <td><input type="text" name="pic_korektif_1"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea name="tindakan_korektif_2" rows="2"></textarea></td>
+                            <td><input type="text" name="target_selesai_korektif_2"></td>
+                            <td><input type="text" name="pic_korektif_2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>BAGIAN 3 - VERIFIKASI</h3>
+            <p class="small-text">(Max 2 bulan setelah tindakan korektif dijalankan)</p>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="form-group">
+                        <label>6. TINDAKAN EFEKTIF?</label>
+                        <div>
+                            <input type="radio" id="efektif_ya" name="tindakan_efektif" value="Ya"> <label for="efektif_ya" class="sub-label">Ya</label>
+                            <input type="radio" id="efektif_tidak" name="tindakan_efektif" value="Tidak"> <label for="efektif_tidak" class="sub-label">Tidak</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ttd_nama_dept">Nama & Dept. :</label>
+                        <input type="text" id="ttd_nama_dept" name="ttd_nama_dept" style="width: 200px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggal_verifikasi">Tanggal :</label>
+                        <input type="text" id="tanggal_verifikasi" name="tanggal_verifikasi" style="width: 150px;">
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="form-group">
+                        <label for="alasan">7. ALASAN</label>
+                        <textarea id="alasan" name="alasan" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ncr_baru">8. NCR BARU No. (jika perlu)</label>
+                        <input type="text" id="ncr_baru" name="ncr_baru" style="width: 150px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+    <script>
+        // Toggle sidebar mobile
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Toggle dropdown
+        document.getElementById('profileMenu').addEventListener('click', () => {
+            const dropdown = document.getElementById('logoutDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Fungsi Logout
+        function logout() {
+            if (confirm("Apakah Anda yakin ingin logout?")) {
+                window.location.href = "/";
+            }
+        }
+    </script>
+    <script src="pengiriman.js"></script>
+</body>
+</html>
