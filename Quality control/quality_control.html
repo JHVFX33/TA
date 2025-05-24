@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pelacakan Barang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar untuk Mobile -->
+    <div class="md:hidden bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-base font-bold">PT. WAHANA PELITA PERSADA</h1>
+        <button id="menuBtn" class="focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="flex flex-col md:flex-row h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-full md:w-64 bg-white shadow-md p-4 md:block hidden">
+            <div class="flex flex-col items-center mb-4">
+                <img src="pt.PNG" alt="Logo Perusahaan" class="w-34 h-16 mb-2">
+                <h1 class="text-lg font-bold text-center">PT. WAHANA PELITA PERSADA</h1>
+            </div>
+            <nav class="mt-6 space-y-2">
+                <a href="hlmadmin.html" class="block p-3 hover:bg-gray-200 rounded-md">Dashboard</a>
+                <a href="pengiriman.html" class="block p-3 bg-red-500 text-white rounded-md font-bold border-l-4 border-red-700">Pengiriman</a>
+                <a href="melacak.html" class="block p-3 hover:bg-gray-200 rounded-md">Melacak</a>
+                <a href="keluhan.html" class="block p-3 hover:bg-gray-200 rounded-md">Keluhan</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 overflow-auto">
+            <!-- Header Profil -->
+            <div class="flex justify-between items-center flex-wrap md:flex-nowrap mb-4">
+                <h2 class="text-lg md:text-xl font-bold">QUALITY CONTROL</h2>
+                <div class="relative">
+                    <div class="flex items-center ml-32 space-x-4 cursor-pointer" id="profileMenu">
+                        <span class="text-gray-700 text-sm md:text-base">Robert Allen - HR Manager</span>
+                        <img src="mz.jpg" class="rounded-full w-10 h-10 object-cover" alt="User Image">
+                    </div>
+                    <div id="logoutDropdown" class="hidden absolute right-0 mt-2 w-32 bg-white border rounded-lg shadow-md">
+                        <button class="w-full text-left p-2 hover:bg-gray-200" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Quality Control Produksi</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        th:first-child, td:first-child {
+            width: 50px; /* Mengecilkan lebar kolom Nomor */
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulir Quality Control Produksi</h1>
+    <form>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Parameter QC</th>
+                    <th>Standar</th>
+                    <th>Hasil Pengujian</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="qcTableBody">
+                <tr>
+                    <td><input type="text" name="nomor[]"></td>
+                    <td><input type="text" name="tanggal[]"></td>
+                    <td><input type="text" name="kode_barang[]"></td>
+                    <td><input type="text" name="nama_barang[]"></td>
+                    <td><input type="text" name="parameter_qc[]"></td>
+                    <td><input type="text" name="standar[]"></td>
+                    <td><input type="text" name="hasil_pengujian[]"></td>
+                    <td>
+                        <select name="status[]">
+                            <option value="Lolos">Lolos</option>
+                            <option value="Tidak Lolos">Tidak Lolos</option>
+                        </select>
+                    </td>
+                    <td><button type="button" class="delete-btn" onclick="deleteRow(this)">Hapus</button></td>
+                </tr>
+                </tbody>
+        </table>
+        <button type="button" onclick="addRow()">Tambah Baris</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function addRow() {
+            const tableBody = document.getElementById("qcTableBody");
+            const newRow = tableBody.insertRow();
+
+            // Nomor
+            let cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="nomor[]">';
+
+            // Tanggal
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="tanggal[]">';
+
+            // Kode Barang
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="kode_barang[]">';
+
+            // Nama Barang
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="nama_barang[]">';
+
+            // Parameter QC
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="parameter_qc[]">';
+
+            // Standar
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="standar[]">';
+
+            // Hasil Pengujian
+            cell = newRow.insertCell();
+            cell.innerHTML = '<input type="text" name="hasil_pengujian[]">';
+
+            // Status
+            cell = newRow.insertCell();
+            cell.innerHTML = `
+                <select name="status[]">
+                    <option value="Lolos">Lolos</option>
+                    <option value="Tidak Lolos">Tidak Lolos</option>
+                </select>
+            `;
+
+            // Aksi (Tombol Hapus)
+            cell = newRow.insertCell();
+            cell.innerHTML = '<button type="button" class="delete-btn" onclick="deleteRow(this)">Hapus</button>';
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode; // Mendapatkan elemen <tr> dari tombol
+            row.remove();
+        }
+    </script>
+</body>
+
+    <script>
+        // Toggle sidebar mobile
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Toggle dropdown
+        document.getElementById('profileMenu').addEventListener('click', () => {
+            const dropdown = document.getElementById('logoutDropdown');
+            dropdown.classList.toggle('hidden');
+        });
+
+        // Fungsi Logout
+        function logout() {
+            if (confirm("Apakah Anda yakin ingin logout?")) {
+                window.location.href = "/";
+            }
+        }
+    </script>
+    <script src="pengiriman.js"></script>
+</body>
+</html>
