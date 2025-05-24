@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengaturan Akun</title>
+<script src="https://cdn.tailwindcss.com/3.4.16">
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.sidebar-active {
+color: #ef4444;
+border-left: 3px solid #ef4444;
+}
+.tab-active {
+color: #ef4444;
+border-bottom: 2px solid #ef4444;
+}
+.pagination-active {
+background-color: #ef4444;
+color: white;
+}
+</style>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { primary: "#ef4444", secondary: "#3b82f6" },
+      borderRadius: {
+        none: "0px",
+        sm: "4px",
+        DEFAULT: "8px",
+        md: "12px",
+        lg: "16px",
+        xl: "20px",
+        "2xl": "24px",
+        "3xl": "32px",
+        full: "9999px",
+        button: "8px",
+      },
+    },
+  },
+};
+</script>
+</head>
+<body class="bg-gray-50">
+<div class="flex h-screen">
+<!-- Sidebar -->
+<div class="w-64 bg-white shadow-md">
+<div class="p-4 border-b">
+<div class="flex items-center space-x-2">
+<div class="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
+<span class="text-white font-bold">M</span>
+</div>
+<span class="text-xl font-semibold">Menu</span>
+</div>
+</div>
+<div class="py-4">
+<a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-dashboard-line"></i>
+</div>
+<span>Dashboard</span>
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-radar-line"></i>
+</div>
+<span>Melacak</span>
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-file-list-line"></i>
+</div>
+<span>Keluhan</span>
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-shopping-bag-line"></i>
+</div>
+<span>Barang</span>
+</a>
+<a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span>Pesanan</span>
+</a>
+<a href="#" class="flex items-center px-4 py-3 sidebar-active hover:bg-gray-100 pl-3">
+<div class="w-6 h-6 flex items-center justify-center mr-3">
+<i class="ri-settings-line"></i>
+</div>
+<span>Pengaturan Akun</span>
+</a>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Header -->
+<header class="bg-white shadow-sm z-10">
+<div class="flex justify-between items-center px-6 py-4">
+<h1 class="text-xl font-semibold">Pengaturan Akun</h1>
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2">
+<div class="text-right">
+<div class="text-sm font-medium">Robert Allen</div>
+<div class="text-xs text-gray-500">HR Manager</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+<i class="ri-user-line text-gray-600"></i>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-auto bg-gray-50 p-6">
+<div class="bg-white rounded-lg shadow-sm">
+<!-- Tabs -->
+<div class="border-b">
+<div class="flex">
+<button class="px-6 py-3 text-primary tab-active" id="create-account-tab">Buat Akun</button>
+<button class="px-6 py-3 text-gray-700 hover:text-primary" id="manage-account-tab">Kelola Akun</button>
+</div>
+</div>
+<div id="create-account-content" class="p-6">
+<h2 class="text-lg font-medium mb-6">Buat Akun Baru</h2>
+<div class="flex justify-center mb-8">
+<div class="relative">
+<div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center">
+<i class="ri-user-line text-4xl text-gray-400"></i>
+</div>
+<button class="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white shadow-lg">
+<i class="ri-camera-line"></i>
+</button>
+</div>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Nama Pengguna</label>
+<input type="text" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Masukkan nama pengguna">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+<input type="email" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Masukkan email">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Kata Sandi</label>
+<div class="relative">
+<input type="password" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Masukkan kata sandi">
+<button type="button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Konfirmasi Kata Sandi</label>
+<div class="relative">
+<input type="password" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Konfirmasi kata sandi">
+<button type="button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Peran</label>
+<div class="relative">
+<select class="w-full p-2 pr-8 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none bg-white">
+<option value="" disabled selected>Pilih Peran</option>
+<option value="super_admin">Super Admin</option>
+<option value="admin">Admin</option>
+<option value="pengiriman">Pengiriman</option>
+<option value="logistik">Logistik</option>
+</select>
+<div class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-end space-x-3">
+<button type="button" class="px-6 py-2 bg-gray-100 text-gray-700 rounded-button font-medium hover:bg-gray-200 !rounded-button whitespace-nowrap">Batal</button>
+<button type="submit" class="px-6 py-2 bg-primary text-white rounded-button font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap">Buat Akun</button>
+</div>
+</form>
+</div>
+<div id="manage-account-content" class="hidden">
+<!-- Content -->
+<div class="p-6">
+<h2 class="text-lg font-medium mb-6">Kelola Akun Pengguna</h2>
+<!-- Search and Filter -->
+<div class="flex justify-end mb-6 space-x-3">
+<div class="relative">
+<input type="text" placeholder="Cari pengguna..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 w-64">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none pl-4 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white">
+<option>Semua Peran</option>
+<option>Super Admin</option>
+<option>Admin</option>
+<option>Pengiriman</option>
+<option>Logistik</option>
+</select>
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-400 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="bg-gray-50 text-left">
+<th class="px-4 py-3 text-sm font-medium text-gray-500">NAMA PENGGUNA</th>
+<th class="px-4 py-3 text-sm font-medium text-gray-500">NIK</th>
+<th class="px-4 py-3 text-sm font-medium text-gray-500">EMAIL</th>
+<th class="px-4 py-3 text-sm font-medium text-gray-500">NO TELEPON</th>
+<th class="px-4 py-3 text-sm font-medium text-gray-500">PERAN</th>
+<th class="px-4 py-3 text-sm font-medium text-gray-500">AKSI</th>
+</tr>
+</thead>
+<tbody class="divide-y">
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+Dewi Sulistiani
+</td>
+<td class="px-4 py-4">WH2025001</td>
+<td class="px-4 py-4">dewi.sulistiani@wahana.co.id</td>
+<td class="px-4 py-4">081234567890</td>
+<td class="px-4 py-4">Super Admin</td>
+<td class="px-4 py-4">
+<div class="relative" id="action-menu-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleActionMenu('action-menu-1')">
+<i class="ri-more-2-fill"></i>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-20 py-1" id="action-dropdown-1">
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showDetailModal('Dewi Sulistiani', 'WH2025001', 'dewi.sulistiani@wahana.co.id', '081234567890', 'Super Admin')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-info-line"></i>
+</div>
+Detail
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showResetPasswordModal('Dewi Sulistiani')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-lock-password-line"></i>
+</div>
+Reset Password
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onclick="showDeleteModal('Dewi Sulistiani')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+Hapus Akun
+</button>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+Budi Santoso
+</td>
+<td class="px-4 py-4">WH2025002</td>
+<td class="px-4 py-4">budi.santoso@wahana.co.id</td>
+<td class="px-4 py-4">081345678901</td>
+<td class="px-4 py-4">Admin</td>
+<td class="px-4 py-4">
+<div class="relative" id="action-menu-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleActionMenu('action-menu-2')">
+<i class="ri-more-2-fill"></i>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-20 py-1" id="action-dropdown-2">
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showDetailModal('Budi Santoso', 'WH2025002', 'budi.santoso@wahana.co.id', '081345678901', 'Admin')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-info-line"></i>
+</div>
+Detail
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showResetPasswordModal('Budi Santoso')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-lock-password-line"></i>
+</div>
+Reset Password
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onclick="showDeleteModal('Budi Santoso')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+Hapus Akun
+</button>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+Ratna Wijaya
+</td>
+<td class="px-4 py-4">WH2025003</td>
+<td class="px-4 py-4">ratna.wijaya@wahana.co.id</td>
+<td class="px-4 py-4">081456789012</td>
+<td class="px-4 py-4">Admin</td>
+<td class="px-4 py-4">
+<div class="relative" id="action-menu-3">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleActionMenu('action-menu-3')">
+<i class="ri-more-2-fill"></i>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-20 py-1" id="action-dropdown-3">
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showDetailModal('Ratna Wijaya', 'WH2025003', 'ratna.wijaya@wahana.co.id', '081456789012', 'Admin')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-info-line"></i>
+</div>
+Detail
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showResetPasswordModal('Ratna Wijaya')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-lock-password-line"></i>
+</div>
+Reset Password
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onclick="showDeleteModal('Ratna Wijaya')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+Hapus Akun
+</button>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+Agus Purnomo
+</td>
+<td class="px-4 py-4">WH2025004</td>
+<td class="px-4 py-4">agus.purnomo@wahana.co.id</td>
+<td class="px-4 py-4">081567890123</td>
+<td class="px-4 py-4">User</td>
+<td class="px-4 py-4">
+<div class="relative" id="action-menu-4">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleActionMenu('action-menu-4')">
+<i class="ri-more-2-fill"></i>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-20 py-1" id="action-dropdown-4">
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showDetailModal('Agus Purnomo', 'WH2025004', 'agus.purnomo@wahana.co.id', '081567890123', 'User')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-info-line"></i>
+</div>
+Detail
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showResetPasswordModal('Agus Purnomo')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-lock-password-line"></i>
+</div>
+Reset Password
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onclick="showDeleteModal('Agus Purnomo')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+Hapus Akun
+</button>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-gray-50">
+<td class="px-4 py-4 flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+Siti Rahayu
+</td>
+<td class="px-4 py-4">WH2025005</td>
+<td class="px-4 py-4">siti.rahayu@wahana.co.id</td>
+<td class="px-4 py-4">081678901234</td>
+<td class="px-4 py-4">User</td>
+<td class="px-4 py-4">
+<div class="relative" id="action-menu-5">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100" onclick="toggleActionMenu('action-menu-5')">
+<i class="ri-more-2-fill"></i>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-20 py-1" id="action-dropdown-5">
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showDetailModal('Siti Rahayu', 'WH2025005', 'siti.rahayu@wahana.co.id', '081678901234', 'User')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-file-info-line"></i>
+</div>
+Detail
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" onclick="showResetPasswordModal('Siti Rahayu')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-lock-password-line"></i>
+</div>
+Reset Password
+</button>
+<button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center" onclick="showDeleteModal('Siti Rahayu')">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-delete-bin-line"></i>
+</div>
+Hapus Akun
+</button>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between mt-6">
+<div class="text-sm text-gray-600">
+Menampilkan 1 sampai 5 dari 12 hasil
+</div>
+<div class="flex space-x-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-gray-500 hover:bg-gray-100">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md pagination-active">
+1
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-gray-500 hover:bg-gray-100">
+2
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-gray-500 hover:bg-gray-100">
+3
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-md text-gray-500 hover:bg-gray-100">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Detail Modal -->
+<div id="detail-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">Detail Pengguna</h3>
+<button class="text-gray-400 hover:text-gray-500" onclick="hideDetailModal()">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Nama Pengguna</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="detail-name"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">NIK</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="detail-nik"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Email</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="detail-email"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">No. Telepon</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="detail-phone"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Peran</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="detail-role"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+<div class="relative">
+<div class="text-sm p-2 bg-gray-50 rounded-lg pr-10">••••••••</div>
+<button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full py-2 bg-gray-100 text-gray-700 rounded-button font-medium hover:bg-gray-200 !rounded-button whitespace-nowrap" onclick="hideDetailModal()">Tutup</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Reset Password Modal -->
+<div id="reset-password-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">Reset Password</h3>
+<button class="text-gray-400 hover:text-gray-500" onclick="hideResetPasswordModal()">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Nama Pengguna</label>
+<div class="text-sm p-2 bg-gray-50 rounded-lg" id="reset-name"></div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Password Baru</label>
+<div class="relative">
+<input type="password" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" id="new-password">
+<button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" id="toggle-new-password">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-600 mb-1">Konfirmasi Password Baru</label>
+<div class="relative">
+<input type="password" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20" id="confirm-password">
+<button class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600" id="toggle-confirm-password">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-6 flex space-x-3">
+<button class="flex-1 py-2 bg-gray-100 text-gray-700 rounded-button font-medium hover:bg-gray-200 !rounded-button whitespace-nowrap" onclick="hideResetPasswordModal()">Batal</button>
+<button class="flex-1 py-2 bg-primary text-white rounded-button font-medium hover:bg-primary/90 !rounded-button whitespace-nowrap" onclick="saveNewPassword()">Simpan</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Delete Modal -->
+<div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-medium">Hapus Akun</h3>
+<button class="text-gray-400 hover:text-gray-500" onclick="hideDeleteModal()">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="text-center mb-6">
+<div class="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center text-red-500 mb-4">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-delete-bin-line"></i>
+</div>
+</div>
+<p class="text-gray-700">Apakah Anda yakin ingin menghapus akun <span class="font-medium" id="delete-name"></span>?</p>
+<p class="text-sm text-gray-500 mt-2">Tindakan ini tidak dapat dibatalkan.</p>
+</div>
+<div class="flex space-x-3">
+<button class="flex-1 py-2 bg-gray-100 text-gray-700 rounded-button font-medium hover:bg-gray-200 !rounded-button whitespace-nowrap" onclick="hideDeleteModal()">Batal</button>
+<button class="flex-1 py-2 bg-red-500 text-white rounded-button font-medium hover:bg-red-600 !rounded-button whitespace-nowrap" onclick="deleteAccount()">Hapus</button>
+</div>
+</div>
+</div>
+</div>
+<script id="action-menu-script">
+document.addEventListener("DOMContentLoaded", function () {
+  // Close all dropdowns when clicking outside
+  document.addEventListener("click", function (event) {
+    const dropdowns = document.querySelectorAll('[id^="action-dropdown-"]');
+    dropdowns.forEach((dropdown) => {
+      const button = dropdown.previousElementSibling;
+      if (!dropdown.contains(event.target) && !button.contains(event.target)) {
+        dropdown.classList.add("hidden");
+      }
+    });
+  });
+});
+function toggleActionMenu(menuId) {
+  const dropdown = document.getElementById(menuId.replace("menu", "dropdown"));
+  // Close all other dropdowns
+  const allDropdowns = document.querySelectorAll('[id^="action-dropdown-"]');
+  allDropdowns.forEach((item) => {
+    if (item.id !== dropdown.id) {
+      item.classList.add("hidden");
+    }
+  });
+  // Toggle current dropdown
+  dropdown.classList.toggle("hidden");
+}
+</script>
+<script id="tab-script">
+document.addEventListener("DOMContentLoaded", function () {
+  const createAccountTab = document.getElementById("create-account-tab");
+  const manageAccountTab = document.getElementById("manage-account-tab");
+  const createAccountContent = document.getElementById(
+    "create-account-content",
+  );
+  const manageAccountContent = document.getElementById(
+    "manage-account-content",
+  );
+  createAccountTab.addEventListener("click", function () {
+    createAccountTab.classList.add("text-primary", "tab-active");
+    createAccountTab.classList.remove("text-gray-700", "hover:text-primary");
+    manageAccountTab.classList.remove("text-primary", "tab-active");
+    manageAccountTab.classList.add("text-gray-700", "hover:text-primary");
+    createAccountContent.classList.remove("hidden");
+    manageAccountContent.classList.add("hidden");
+  });
+  manageAccountTab.addEventListener("click", function () {
+    manageAccountTab.classList.add("text-primary", "tab-active");
+    manageAccountTab.classList.remove("text-gray-700", "hover:text-primary");
+    createAccountTab.classList.remove("text-primary", "tab-active");
+    createAccountTab.classList.add("text-gray-700", "hover:text-primary");
+    manageAccountContent.classList.remove("hidden");
+    createAccountContent.classList.add("hidden");
+  });
+});
+</script>
+<script id="modal-script">
+document.addEventListener("DOMContentLoaded", function () {
+  // Toggle password visibility
+  document
+    .getElementById("toggle-new-password")
+    .addEventListener("click", function () {
+      togglePasswordVisibility("new-password", this);
+    });
+  document
+    .getElementById("toggle-confirm-password")
+    .addEventListener("click", function () {
+      togglePasswordVisibility("confirm-password", this);
+    });
+});
+function togglePasswordVisibility(inputId, button) {
+  const input = document.getElementById(inputId);
+  const icon = button.querySelector("i");
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove("ri-eye-line");
+    icon.classList.add("ri-eye-off-line");
+  } else {
+    input.type = "password";
+    icon.classList.remove("ri-eye-off-line");
+    icon.classList.add("ri-eye-line");
+  }
+}
+function showDetailModal(name, nik, email, phone, role) {
+  document.getElementById("detail-name").textContent = name;
+  document.getElementById("detail-nik").textContent = nik;
+  document.getElementById("detail-email").textContent = email;
+  document.getElementById("detail-phone").textContent = phone;
+  document.getElementById("detail-role").textContent = role;
+  document.getElementById("detail-modal").classList.remove("hidden");
+  // Close all dropdowns
+  const dropdowns = document.querySelectorAll('[id^="action-dropdown-"]');
+  dropdowns.forEach((dropdown) => {
+    dropdown.classList.add("hidden");
+  });
+}
+function hideDetailModal() {
+  document.getElementById("detail-modal").classList.add("hidden");
+}
+function showResetPasswordModal(name) {
+  document.getElementById("reset-name").textContent = name;
+  document.getElementById("new-password").value = "";
+  document.getElementById("confirm-password").value = "";
+  document.getElementById("reset-password-modal").classList.remove("hidden");
+  // Close all dropdowns
+  const dropdowns = document.querySelectorAll('[id^="action-dropdown-"]');
+  dropdowns.forEach((dropdown) => {
+    dropdown.classList.add("hidden");
+  });
+}
+function hideResetPasswordModal() {
+  document.getElementById("reset-password-modal").classList.add("hidden");
+}
+function saveNewPassword() {
+  const newPassword = document.getElementById("new-password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+  if (!newPassword) {
+    alert("Password baru tidak boleh kosong");
+    return;
+  }
+  if (newPassword !== confirmPassword) {
+    alert("Password baru dan konfirmasi password tidak cocok");
+    return;
+  }
+  // Here you would normally send the data to the server
+  alert("Password berhasil diubah");
+  hideResetPasswordModal();
+}
+function showDeleteModal(name) {
+  document.getElementById("delete-name").textContent = name;
+  document.getElementById("delete-modal").classList.remove("hidden");
+  // Close all dropdowns
+  const dropdowns = document.querySelectorAll('[id^="action-dropdown-"]');
+  dropdowns.forEach((dropdown) => {
+    dropdown.classList.add("hidden");
+  });
+}
+function hideDeleteModal() {
+  document.getElementById("delete-modal").classList.add("hidden");
+}
+function deleteAccount() {
+  // Here you would normally send the delete request to the server
+  alert("Akun berhasil dihapus");
+  hideDeleteModal();
+}
+</script>
+</body>
+</html>
