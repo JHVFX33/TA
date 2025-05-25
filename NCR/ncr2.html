@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NON CONFORMANCE - PT WAHANA PELITA PERSADA</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#e53e3e", secondary: "#f6ad55" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafb;
+      }
+      .sidebar {
+      width: 200px;
+      min-height: 100vh;
+      background-color: white;
+      border-right: 1px solid #e5e7eb;
+      }
+      .sidebar-item {
+      padding: 0.75rem 1rem;
+      transition: all 0.2s;
+      }
+      .sidebar-item.active {
+      background-color: #e53e3e;
+      color: white;
+      }
+      .sidebar-item:hover:not(.active) {
+      background-color: #f3f4f6;
+      }
+      input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+      }
+      input[type="checkbox"]:checked {
+      background-color: #e53e3e;
+      border-color: #e53e3e;
+      }
+      input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      top: 1px;
+      left: 5px;
+      transform: rotate(45deg);
+      }
+      .table-row:hover {
+      background-color: #f9fafb;
+      }
+      .pagination-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      }
+      .pagination-btn.active {
+      background-color: #e53e3e;
+      color: white;
+      border-color: #e53e3e;
+      }
+    </style>
+  </head>
+  <body class="flex">
+    <!-- Sidebar -->
+    <div class="sidebar flex flex-col">
+      <div class="p-4 border-b border-gray-200">
+        <h1 class="font-bold text-sm">PT WAHANA PELITA PERSADA</h1>
+      </div>
+      <div class="flex flex-col flex-grow">
+        <a href="#" class="sidebar-item">Dashboard</a>
+        <a href="#" class="sidebar-item active">Penerimaan</a>
+        <a href="#" class="sidebar-item">Masukan</a>
+        <a href="#" class="sidebar-item">Keluhan</a>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="flex-1">
+      <!-- Header -->
+      <div
+        class="flex justify-between items-center p-4 border-b border-gray-200"
+      >
+        <h1 class="text-xl font-bold">NON CONFORMANCE</h1>
+        <div class="flex items-center gap-2">
+          <span>Robert Allen - HR Manager</span>
+          <div
+            class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center"
+          >
+            <span class="text-sm font-medium">RA</span>
+          </div>
+        </div>
+      </div>
+      <!-- NCR List -->
+      <div class="p-6">
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-4">
+              <h2 class="text-lg font-bold">NCR List</h2>
+              <button
+                id="newNcrBtn"
+                class="bg-primary text-white px-4 py-2 rounded-button flex items-center gap-2 whitespace-nowrap"
+              >
+                <i class="ri-add-line"></i> New NCR
+              </button>
+            </div>
+            <div
+              id="ncrModal"
+              class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+            >
+              <div
+                class="bg-white rounded-lg w-[800px] max-h-[90vh] overflow-y-auto relative"
+              >
+                <div class="flex justify-between items-center p-4 border-b">
+                 <h3 class="text-lg font-bold">Non Conformance Report (NCR)</h3>
+<button id="closeNcrModal" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line text-xl"></i>
+</button>
+</div>
+<div class="p-6">
+<form id="ncrForm">
+<div class="mb-8">
+<h4 class="font-medium mb-4 uppercase text-gray-700">BAGIAN 1 - DATA</h4>
+<div class="grid grid-cols-2 gap-6 mb-6">
+<div class="bg-gray-50 p-4 rounded-lg">
+<label class="block text-sm font-medium text-gray-700 mb-2">1. NCR No.</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter NCR number">
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<label class="block text-sm font-medium text-gray-700 mb-2">2. Jenis Pengajuan</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter type">
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-3">3. JENIS KETIDAKSESUAIAN/KENDALA/KETIDAKSESUAIAN</label>
+<div class="space-y-3">
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Laporan Ketidaksesuaian (Internal)</span>
+</label>
+<div class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Lain-lain:</span>
+<input type="text" class="border-none bg-white rounded-lg px-4 py-2 shadow-sm w-64" placeholder="Specify others">
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-2">4. Deskripsi Temuan (Non Conformance)</label>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm h-24" placeholder="Enter description"></textarea>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<div class="grid grid-cols-4 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Customer</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter customer">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Drawing & Code Part</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter code">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Qty</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter quantity">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Ditemukan Oleh</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter name">
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-8">
+<div class="grid grid-cols-4 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Operator</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter operator">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Shift</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter shift">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Standard Cost</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter cost">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Lokasi</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5 shadow-sm" placeholder="Enter location">
+</div>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="font-medium mb-4 uppercase text-gray-700">BAGIAN 2 - AKAR PENYEBAB & TINDAKAN</h4>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-4">5. AKAR MASALAH (Root Cause atau Analisa) untuk Tindakan Perbaikan & Pencegahan</label>
+<div class="grid grid-cols-2 gap-8">
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<p class="text-sm font-medium text-gray-700 mb-3">Disposisi:</p>
+<div class="grid grid-cols-2 gap-x-4 gap-y-3">
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Reject</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Repair</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Stock</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Koreksi</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Retur/Ganti</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Kembali ke supplier</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Lain-lain</span>
+</label>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<p class="text-sm font-medium text-gray-700 mb-3">Problem:</p>
+<div class="grid grid-cols-2 gap-x-4 gap-y-3">
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Man</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Methode</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Machine</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="checkbox" class="rounded">
+<span>Material</span>
+</label>
+</div>
+<div class="mt-4 pt-4 border-t">
+<p class="text-sm font-medium text-gray-700 mb-3">Status NCR:</p>
+<div class="flex gap-6">
+<label class="flex items-center gap-2 text-sm">
+<input type="radio" name="status" class="text-primary">
+<span>Open</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="radio" name="status" class="text-primary">
+<span>Closed</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-4">6. TINDAKAN PERBAIKAN SEGERA YANG DIAJUKAN (Immediate action)</label>
+<div class="space-y-4">
+<div class="grid grid-cols-[1fr,200px,200px] gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 h-24" placeholder="Enter immediate action"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Target Selesai</label>
+<input type="date" class="w-full border-none bg-white rounded-lg px-4 py-2.5">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">PIC</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5" placeholder="Enter PIC">
+</div>
+</div>
+<div class="grid grid-cols-[1fr,200px,200px] gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 h-24" placeholder="Enter immediate action"></textarea>
+</div>
+<div>
+<input type="date" class="w-full border-none bg-white rounded-lg px-4 py-2.5">
+</div>
+<div>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5" placeholder="Enter PIC">
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-8">
+<label class="block text-sm font-medium text-gray-700 mb-4">7. TINDAKAN KOREKTIF / PENCEGAHAN YANG DIAJUKAN</label>
+<div class="space-y-4">
+<div class="grid grid-cols-[1fr,200px,200px] gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 h-24" placeholder="Enter corrective action"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Target Selesai</label>
+<input type="date" class="w-full border-none bg-white rounded-lg px-4 py-2.5">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">PIC</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5" placeholder="Enter PIC">
+</div>
+</div>
+<div class="grid grid-cols-[1fr,200px,200px] gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 h-24" placeholder="Enter corrective action"></textarea>
+</div>
+<div>
+<input type="date" class="w-full border-none bg-white rounded-lg px-4 py-2.5">
+</div>
+<div>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5" placeholder="Enter PIC">
+</div>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h4 class="font-medium mb-4 uppercase text-gray-700">BAGIAN 3 - VERIFIKASI</h4>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="grid grid-cols-2 gap-8 mb-6">
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<label class="block text-sm font-medium text-gray-700 mb-3">8. PENILAIAN EFEKTIFITAS</label>
+<div class="flex gap-6">
+<label class="flex items-center gap-2 text-sm">
+<input type="radio" name="effectiveness" class="text-primary">
+<span>Ya</span>
+</label>
+<label class="flex items-center gap-2 text-sm">
+<input type="radio" name="effectiveness" class="text-primary">
+<span>Tidak</span>
+</label>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<label class="block text-sm font-medium text-gray-700 mb-3">9. ALASAN</label>
+<textarea class="w-full border-none bg-white rounded-lg px-4 py-2.5 h-24" placeholder="Enter reason"></textarea>
+</div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<label class="block text-sm font-medium text-gray-700 mb-3">10. NCR BARU No. (Jika perlu)</label>
+<input type="text" class="w-full border-none bg-white rounded-lg px-4 py-2.5" placeholder="Enter new NCR number">
+</div>
+</div>
+</div>
+<div class="flex justify-end gap-4">
+<button type="button" id="cancelNcrBtn" class="px-6 py-2.5 border border-gray-300 rounded-button text-gray-700 font-medium hover:bg-gray-50">Cancel</button>
+<button type="submit" class="bg-primary text-white px-6 py-2.5 rounded-button font-medium hover:bg-primary/90">Submit</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+            
+              </div>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-3 px-4 font-medium text-gray-600">
+                    No. NCR
+                  </th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-600">
+                    Date
+                  </th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-600">
+                    Customer
+                  </th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-600">
+                    Status
+                  </th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-600">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-row border-b border-gray-200">
+                  <td class="py-3 px-4">NCR-2025-001</td>
+                  <td class="py-3 px-4">2025-05-25</td>
+                  <td class="py-3 px-4">PT Maju Jaya</td>
+                  <td class="py-3 px-4">
+                    <span
+                      class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium"
+                      >Open</span
+                    >
+                  </td>
+                  <td class="py-3 px-4">
+                    <div class="flex gap-2">
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-pencil-line"></i>
+                      </button>
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td class="py-3 px-4">NCR-2025-002</td>
+                  <td class="py-3 px-4">2025-05-24</td>
+                  <td class="py-3 px-4">CV Sukses Makmur</td>
+                  <td class="py-3 px-4">
+                    <span
+                      class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium"
+                      >Closed</span
+                    >
+                  </td>
+                  <td class="py-3 px-4">
+                    <div class="flex gap-2">
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-eye-line"></i>
+                      </button>
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-pencil-line"></i>
+                      </button>
+                      <button
+                        class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary"
+                      >
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="flex justify-between items-center mt-4">
+            <div class="text-sm text-gray-500">Showing 1 to 2 of 2 entries</div>
+            <div class="flex gap-2">
+              <button class="pagination-btn text-gray-500" disabled>
+                <i class="ri-arrow-left-s-line"></i>
+              </button>
+              <button class="pagination-btn active">1</button>
+              <button class="pagination-btn text-gray-500" disabled>
+                <i class="ri-arrow-right-s-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="table-interactions">
+      document.addEventListener("DOMContentLoaded", function () {
+        const tableRows = document.querySelectorAll(".table-row");
+        tableRows.forEach((row) => {
+          row.addEventListener("mouseover", function () {
+            this.classList.add("bg-gray-50");
+          });
+          row.addEventListener("mouseout", function () {
+            this.classList.remove("bg-gray-50");
+          });
+        });
+      });
+    </script>
+    <script id="modal-interactions">
+      document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("ncrModal");
+        const openBtn = document.getElementById("newNcrBtn");
+        const closeBtn = document.getElementById("closeNcrModal");
+        const cancelBtn = document.getElementById("cancelNcrBtn");
+        const ncrForm = document.getElementById("ncrForm");
+        function openModal() {
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+          document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          document.body.style.overflow = "";
+          ncrForm.reset();
+        }
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        cancelBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+        ncrForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          closeModal();
+        });
+      });
+    </script>
+  </body>
+</html>
