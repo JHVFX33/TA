@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT. WAHANA PELITA PERSADA - Non Conformance</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: Arial, sans-serif;
+      }
+      .sidebar-menu-item.active {
+      background-color: #ef4444;
+      color: white;
+      }
+      .form-input {
+      border: 1px solid #d1d5db;
+      padding: 0.5rem;
+      width: 100%;
+      }
+      .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      }
+      .custom-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #d1d5db;
+      margin-right: 8px;
+      position: relative;
+      cursor: pointer;
+      }
+      .custom-checkbox.checked:after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ef4444;
+      top: 2px;
+      left: 2px;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#ef4444", secondary: "#1f2937" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-white min-h-screen">
+    <div class="flex min-h-screen relative">
+      <!-- Modal Form -->
+      <div
+        id="formModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+      >
+        <div
+          class="bg-white rounded-lg w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto"
+        >
+          <div
+            class="flex justify-between items-center p-4 border-b border-gray-200"
+          >
+            <h2 class="text-xl font-bold">Non Conformance Report (NCR)</h2>
+            <button
+              onclick="closeModal()"
+              class="text-gray-500 hover:text-gray-700"
+            >
+              <i class="ri-close-line ri-xl"></i>
+            </button>
+          </div>
+          <div class="p-6">
+            <form id="ncrForm" class="space-y-6">
+              <div class="grid grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >NCR No.</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Tanggal Pengajuan</label
+                  >
+                  <input
+                    type="date"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h3 class="font-medium text-gray-900">
+                  3. AKAR MASALAH (Root Cause atau Analisa) untuk Tindakan
+                  Perbaikan & Pencegahan
+                </h3>
+                <div class="grid grid-cols-2 gap-x-8">
+                  <div class="space-y-2">
+                    <p class="text-sm text-gray-600">Disposisi:</p>
+                    <div class="flex flex-wrap gap-4">
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Reject</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Repair</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Stock</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Koreksi</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Retur/Ganti</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Kembali ke supplier</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Lain-lain</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="space-y-2">
+                    <p class="text-sm text-gray-600">Problem:</p>
+                    <div class="flex flex-wrap gap-4">
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Man</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Methode</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Machine</span>
+                      </label>
+                      <label class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          class="rounded text-primary focus:ring-primary"
+                        />
+                        <span class="text-sm">Material</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4">
+                  <span class="text-sm text-gray-600">Status NCR:</span>
+                  <label class="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="status"
+                      value="open"
+                      class="text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm">Open</span>
+                  </label>
+                  <label class="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="status"
+                      value="closed"
+                      class="text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm">Closed</span>
+                  </label>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h3 class="font-medium text-gray-900">
+                  4. TINDAKAN PERBAIKAN SEGERA YANG DIAJUKAN (Immediate action)
+                </h3>
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <div class="grid grid-cols-3 gap-4">
+                    <div class="col-span-3">
+                      <textarea
+                        rows="3"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <label class="block text-sm text-gray-600 mb-1"
+                        >Target Selesai</label
+                      >
+                      <input
+                        type="date"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      />
+                    </div>
+                    <div>
+                      <label class="block text-sm text-gray-600 mb-1"
+                        >PIC</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h3 class="font-medium text-gray-900">
+                  5. TINDAKAN KOREKTIF / PENCEGAHAN YANG DIAJUKAN
+                </h3>
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                  <table class="w-full">
+                    <thead>
+                      <tr class="bg-gray-50">
+                        <th
+                          class="px-4 py-2 text-left text-sm font-medium text-gray-600"
+                        >
+                          TINDAKAN KOREKTIF
+                        </th>
+                        <th
+                          class="px-4 py-2 text-left text-sm font-medium text-gray-600 w-32"
+                        >
+                          Target Selesai
+                        </th>
+                        <th
+                          class="px-4 py-2 text-left text-sm font-medium text-gray-600 w-32"
+                        >
+                          PIC
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                      <tr>
+                        <td class="p-2">
+                          <textarea
+                            rows="2"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          ></textarea>
+                        </td>
+                        <td class="p-2">
+                          <input
+                            type="date"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          />
+                        </td>
+                        <td class="p-2">
+                          <input
+                            type="text"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2">
+                          <textarea
+                            rows="2"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          ></textarea>
+                        </td>
+                        <td class="p-2">
+                          <input
+                            type="date"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          />
+                        </td>
+                        <td class="p-2">
+                          <input
+                            type="text"
+                            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h3 class="font-medium text-gray-900">BAGIAN 3 - VERIFIKASI</h3>
+                <p class="text-sm text-gray-500">
+                  (Max 2 bulan setelah tindakan korektif dijalankan)
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                  <div class="space-y-4">
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-2"
+                        >6. TINDAKAN EFEKTIF?</label
+                      >
+                      <div class="flex gap-4">
+                        <label class="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="effective"
+                            value="ya"
+                            class="text-primary focus:ring-primary"
+                          />
+                          <span class="text-sm">Ya</span>
+                        </label>
+                        <label class="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="effective"
+                            value="tidak"
+                            class="text-primary focus:ring-primary"
+                          />
+                          <span class="text-sm">Tidak</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Nama & Dept.:</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >Tanggal:</label
+                      >
+                      <input
+                        type="date"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      />
+                    </div>
+                  </div>
+                  <div class="space-y-4">
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >7. ALASAN</label
+                      >
+                      <textarea
+                        rows="4"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      ></textarea>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                        >8. NCR BARU No. (jika perlu)</label
+                      >
+                      <input
+                        type="text"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Deskripsi Problem</label
+                >
+                <textarea
+                  rows="3"
+                  class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                ></textarea>
+              </div>
+              <div class="grid grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Customer</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Dimensi & Code Mart</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Qty</label
+                  >
+                  <input
+                    type="number"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Dilaporkan Oleh</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Department</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Status NCR</label
+                >
+                <div class="flex space-x-4">
+                  <label class="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="status"
+                      value="open"
+                      class="text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm">Open</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      name="status"
+                      value="closed"
+                      class="text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm">Closed</span>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1"
+                  >Tindakan Perbaikan</label
+                >
+                <textarea
+                  rows="3"
+                  class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                ></textarea>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >Target Selesai</label
+                  >
+                  <input
+                    type="date"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1"
+                    >PIC</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+              <div class="flex justify-end space-x-3 pt-6 border-t">
+                <button
+                  type="button"
+                  onclick="closeModal()"
+                  class="px-4 py-2 text-gray-600 hover:text-gray-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90"
+                >
+                  Submit NCR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <div class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <div class="p-4 border-b border-gray-200">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iNTAiIGZpbGw9IiNmOGY4ZjgiLz48dGV4dCB4PSI1MCIgeT0iMjUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZmlsbD0iIzMzMyI+TG9nbzwvdGV4dD48L3N2Zz4="
+            alt="Logo Perusahaan"
+            class="h-10"
+          />
+          <h1 class="text-sm font-bold mt-2">PT. WAHANA PELITA PERSADA</h1>
+        </div>
+        <nav class="flex-1 py-4">
+          <ul>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="#" class="sidebar-menu-item active block px-4 py-2"
+                >Pengiriman</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >Masukan</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >Keluhan</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Main Content -->
+      <div class="flex-1 overflow-auto">
+        <header
+          class="flex justify-between items-center p-4 border-b border-gray-200"
+        >
+          <h1 class="text-2xl font-bold">NON CONFORMANCE</h1>
+          <div class="flex items-center space-x-4">
+            <button
+              onclick="openModal()"
+              class="px-4 py-2 bg-primary text-white rounded-button hover:bg-primary/90 flex items-center"
+            >
+              <i class="ri-add-line ri-lg mr-1"></i>
+              New NCR
+            </button>
+            <div class="flex items-center">
+              <span class="text-sm text-gray-600 mr-2"
+                >Robert Allen - HR Manager</span
+              >
+              <div
+                class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"
+              >
+                <span class="text-xs">RA</span>
+              </div>
+            </div>
+          </div>
+        </header>
+        <main class="p-6">
+          <div class="bg-white rounded-lg shadow">
+            <div class="p-4">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">NCR List</h2>
+                <div class="relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    class="pl-8 pr-4 py-2 border rounded-lg"
+                  />
+                  <i
+                    class="ri-search-line absolute left-2 top-1/2 -translate-y-1/2 text-gray-400"
+                  ></i>
+                </div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="bg-gray-50">
+                      <th
+                        class="px-4 py-3 text-left text-sm font-semibold text-gray-600"
+                      >
+                        No. NCR
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left text-sm font-semibold text-gray-600"
+                      >
+                        Date
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left text-sm font-semibold text-gray-600"
+                      >
+                        Customer
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left text-sm font-semibold text-gray-600"
+                      >
+                        Status
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left text-sm font-semibold text-gray-600"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-3">NCR-2025-001</td>
+                      <td class="px-4 py-3">2025-05-25</td>
+                      <td class="px-4 py-3">PT Maju Jaya</td>
+                      <td class="px-4 py-3">
+                        <span
+                          class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800"
+                          >Open</span
+                        >
+                      </td>
+                      <td class="px-4 py-3">
+                        <button class="text-gray-400 hover:text-primary mr-2">
+                          <i class="ri-eye-line ri-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-primary mr-2">
+                          <i class="ri-edit-line ri-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-red-500">
+                          <i class="ri-delete-bin-line ri-lg"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-3">NCR-2025-002</td>
+                      <td class="px-4 py-3">2025-05-24</td>
+                      <td class="px-4 py-3">CV Sukses Makmur</td>
+                      <td class="px-4 py-3">
+                        <span
+                          class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800"
+                          >Closed</span
+                        >
+                      </td>
+                      <td class="px-4 py-3">
+                        <button class="text-gray-400 hover:text-primary mr-2">
+                          <i class="ri-eye-line ri-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-primary mr-2">
+                          <i class="ri-edit-line ri-lg"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-red-500">
+                          <i class="ri-delete-bin-line ri-lg"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="flex justify-between items-center mt-4 px-4">
+                <div class="text-sm text-gray-500">
+                  Showing 1 to 2 of 2 entries
+                </div>
+                <div class="flex space-x-1">
+                  <button
+                    class="px-3 py-1 rounded border text-sm disabled:opacity-50"
+                    disabled
+                  >
+                    Previous
+                  </button>
+                  <button
+                    class="px-3 py-1 rounded border text-sm bg-primary text-white"
+                  >
+                    1
+                  </button>
+                  <button
+                    class="px-3 py-1 rounded border text-sm disabled:opacity-50"
+                    disabled
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded-md p-6">
+            <div class="text-center mb-6">
+              <h2 class="font-bold">NON CONFORMANCE REPORT (NCR)</h2>
+              <p class="text-sm">(LAPORAN KETIDAKSESUAIAN)</p>
+            </div>
+            <div class="mb-6">
+              <h3 class="font-bold mb-4">BAGIAN 1 - DATA</h3>
+              <div class="grid grid-cols-2 gap-6">
+                <div>
+                  <label class="block mb-2">1. NCR No.</label>
+                  <input type="text" class="form-input rounded" />
+                </div>
+                <div>
+                  <label class="block mb-2">2. Tgl. Pengajaran :</label>
+                  <input type="text" class="form-input rounded" />
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label class="block mb-2"
+                >1. JENIS KETIDAKSESUAIAN/POTENSI KETIDAKSESUAIAN</label
+              >
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox1"></div>
+                    <label>Keluhan Pelanggan</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox2"></div>
+                    <label>Laporan Audit</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox3"></div>
+                    <label>Laporan Ketidaksesuaian (Internal)</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox4"></div>
+                    <label>Lain-lain</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <label class="block mb-2"
+                >2. Deskripsi Problem (Non Conformance) :</label
+              >
+              <textarea class="form-input rounded h-24"></textarea>
+            </div>
+            <div class="mb-6 overflow-x-auto">
+              <table class="w-full border-collapse">
+                <tr>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Customer
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Dimensi & Code Mart
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Qty
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Dilaporkan Oleh
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Dept.
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Kepada :
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Dept.
+                  </th>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="mb-6 overflow-x-auto">
+              <table class="w-full border-collapse">
+                <tr>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Operator :
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Shift :
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Estimate Cost :
+                  </th>
+                  <th class="border border-gray-300 p-2 text-sm text-left">
+                    Lokasi
+                  </th>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                  <td class="border border-gray-300 p-1">
+                    <input type="text" class="form-input border-none" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="mb-6">
+              <h3 class="font-bold mb-4">
+                BAGIAN 2 - AKAR PENYEBAB & TINDAKAN
+              </h3>
+              <p class="mb-2">3. AKAR MASALAH (Root Cause Analysis)</p>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox5"></div>
+                    <label>Reject</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox6"></div>
+                    <label>Repair</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox7"></div>
+                    <label>Stock</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox8"></div>
+                    <label>Koreksi</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox9"></div>
+                    <label>Retur/Ganti</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox10"></div>
+                    <label>Kembali ke supplier</label>
+                  </div>
+                  <div class="checkbox-container">
+                    <div class="custom-checkbox" id="checkbox11"></div>
+                    <label>Lain-lain</label>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <div class="flex items-center space-x-4">
+                    <div class="checkbox-container">
+                      <div class="custom-checkbox" id="checkbox12"></div>
+                      <label>Man</label>
+                    </div>
+                    <div class="checkbox-container">
+                      <div class="custom-checkbox" id="checkbox13"></div>
+                      <label>Method</label>
+                    </div>
+                    <div class="checkbox-container">
+                      <div class="custom-checkbox" id="checkbox14"></div>
+                      <label>Machine</label>
+                    </div>
+                    <div class="checkbox-container">
+                      <div class="custom-checkbox" id="checkbox15"></div>
+                      <label>Material</label>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex items-center">
+                    <span class="mr-4">Status NCR:</span>
+                    <div class="checkbox-container mr-4">
+                      <div class="custom-checkbox" id="checkbox16"></div>
+                      <label>Open</label>
+                    </div>
+                    <div class="checkbox-container">
+                      <div class="custom-checkbox" id="checkbox17"></div>
+                      <label>Closed</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h3 class="font-bold mb-2">
+                4. TINDAKAN PERBAIKAN SEGERA YANG DILAKUKAN
+              </h3>
+              <p class="text-sm mb-2">(Immediate action)</p>
+              <textarea class="form-input rounded h-24 mb-4"></textarea>
+              <div class="grid grid-cols-2 gap-6">
+                <div>
+                  <label class="block mb-2">Target Selesai</label>
+                  <input type="text" class="form-input rounded" />
+                </div>
+                <div>
+                  <label class="block mb-2">PIC</label>
+                  <input type="text" class="form-input rounded" />
+                </div>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h3 class="font-bold mb-2">
+                5. TINDAKAN KOREKTIF / PENCEGAHAN YANG DIAJUKAN
+              </h3>
+              <div class="border border-gray-300 rounded-md overflow-hidden">
+                <table class="w-full border-collapse">
+                  <thead>
+                    <tr>
+                      <th
+                        class="border-b border-r border-gray-300 p-2 text-sm text-left bg-gray-50 w-1/2"
+                      >
+                        TINDAKAN KOREKTIF
+                      </th>
+                      <th
+                        class="border-b border-r border-gray-300 p-2 text-sm text-left bg-gray-50"
+                      >
+                        Target Selesai
+                      </th>
+                      <th
+                        class="border-b border-gray-300 p-2 text-sm text-left bg-gray-50"
+                      >
+                        PIC
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="border-b border-r border-gray-300 p-2">
+                        <textarea
+                          class="w-full border-none bg-transparent resize-none h-20"
+                        ></textarea>
+                      </td>
+                      <td class="border-b border-r border-gray-300 p-2">
+                        <input
+                          type="text"
+                          class="w-full border-none bg-transparent"
+                        />
+                      </td>
+                      <td class="border-b border-gray-300 p-2">
+                        <input
+                          type="text"
+                          class="w-full border-none bg-transparent"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="border-r border-gray-300 p-2">
+                        <textarea
+                          class="w-full border-none bg-transparent resize-none h-20"
+                        ></textarea>
+                      </td>
+                      <td class="border-r border-gray-300 p-2">
+                        <input
+                          type="text"
+                          class="w-full border-none bg-transparent"
+                        />
+                      </td>
+                      <td class="p-2">
+                        <input
+                          type="text"
+                          class="w-full border-none bg-transparent"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h3 class="font-bold mb-4">BAGIAN 3 - VERIFIKASI</h3>
+              <p class="text-sm text-gray-500 mb-4">
+                (Max 2 bulan setelah tindakan korektif dijalankan)
+              </p>
+              <div class="grid grid-cols-2 gap-6">
+                <div>
+                  <div class="mb-4">
+                    <label class="block mb-2">6. TINDAKAN EFEKTIF?</label>
+                    <div class="flex space-x-4">
+                      <label class="flex items-center">
+                        <input type="radio" name="effective" class="mr-2" />
+                        <span>Ya</span>
+                      </label>
+                      <label class="flex items-center">
+                        <input type="radio" name="effective" class="mr-2" />
+                        <span>Tidak</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="block mb-2">Nama & Dept.:</label>
+                    <input type="text" class="form-input rounded w-full" />
+                  </div>
+                  <div class="mb-4">
+                    <label class="block mb-2">Tanggal:</label>
+                    <input type="text" class="form-input rounded w-full" />
+                  </div>
+                </div>
+                <div>
+                  <div class="mb-4">
+                    <label class="block mb-2">7. ALASAN</label>
+                    <textarea class="form-input rounded h-24 w-full"></textarea>
+                  </div>
+                  <div class="mb-4">
+                    <label class="block mb-2"
+                      >8. NCR BARU No. (jika perlu)</label
+                    >
+                    <input type="text" class="form-input rounded w-full" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script id="modal-functionality">
+      document.addEventListener("DOMContentLoaded", function () {
+        function openModal() {
+          document.getElementById("formModal").classList.remove("hidden");
+          document.getElementById("formModal").classList.add("flex");
+          document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+          document.getElementById("formModal").classList.add("hidden");
+          document.getElementById("formModal").classList.remove("flex");
+          document.body.style.overflow = "auto";
+        }
+        document.getElementById("ncrForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add form submission logic here
+          closeModal();
+        });
+        // Close modal when clicking outside
+        document.getElementById("formModal").addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+        // Make functions globally available
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+      });
+    </script>
+  </body>
+</html>
